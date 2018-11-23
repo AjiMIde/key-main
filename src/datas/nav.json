@@ -1,9 +1,17 @@
 {
-  "title": "mine",
+  "title": "GitBooks",
   "list": [
     {
       "text": "Tools Books One",
       "link": "https://ajimide.gitbooks.io/toolsbooksone/content"
+    },
+    {
+      "text": "React Learn",
+      "link": "https://ajimide.gitbooks.io/reactlearn/content/"
+    },
+    {
+      "text": "",
+      "link": ""
     }
   ]
 }
