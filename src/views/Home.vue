@@ -41,12 +41,18 @@ export default {
   .home {
     text-align: left;
     .nav-l-title {
+      font-size: 22px;
     }
     .nav-l-item {
       a {
-        color: #75b2ff;
+        /*color: #75b2ff;*/
+        color: #fff;
         text-decoration: none;
-        padding: 4px 6px;
+        padding: 4px 6px 4px 0;
+        &:hover {
+          text-shadow: 0px 0px 6px #e8e8e8;
+          transition: all .3s;
+        }
       }
     }
   }

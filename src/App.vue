@@ -9,6 +9,9 @@
 </template>
 
 <style lang="scss">
+  html {
+    background-image: url('assets/photo-1489573280374-2e193c63726c.jpg');
+  }
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -26,6 +29,7 @@
       color: #2c3e50;
       &.router-link-exact-active {
         color: #42b983;
+        /*color: #fff;*/
       }
     }
   }
