@@ -10,10 +10,31 @@
         {
           "text": "React Learn",
           "link": "https://ajimide.gitbooks.io/reactlearn/content/"
+        }
+      ]
+    },
+    {
+      "title": "VUE",
+      "list": [
+        {
+          "text": "Vue home",
+          "link": "https://cn.vuejs.org"
         },
         {
-          "text": "",
-          "link": ""
+          "text": "Vue Cli3",
+          "link": "https://cli.vuejs.org"
+        },
+        {
+          "text": "Awesome-vue",
+          "link": "https://github.com/vuejs/awesome-vue"
+        },
+        {
+          "text": "React China",
+          "block": "true",
+          "link": "https://react.docschina.org"
+        }, {
+          "text": "React",
+          "link": "https://reactjs.org"
         }
       ]
     },

@@ -23,7 +23,7 @@
               <span class="nav-l-logo-txt"
                     v-else-if="subItem.link.indexOf('http') === -1">{{subItem.text.substr(0, 1)}}</span>
               <span class="nav-l-logo" v-else>
-                <img :src="getNavSpanImg(subItem)" :onerror="`this.src='img/chick (${index + 1}).png'`"/>
+                <img :src="getNavSpanImg(subItem)" :onerror="getNavSpanRandomImg()"/>
               </span>
               <a :href="subItem.link" target="_blank"> {{subItem.text}} </a>
             </span>
@@ -86,6 +86,10 @@ export default {
       }
       return link + '/favicon.ico'
     },
+    getNavSpanRandomImg () {
+      const n = Math.floor(Math.random() * 10) + 1
+      return `this.src='img/chick (${n}).png'`
+    },
     mottoCloseClick () {
       this.showMotto = false
     }
@@ -128,6 +132,9 @@ export default {
         margin: 0 0 12px 0;
       }
       .nav-l-item {
+        > span {
+          padding: 0 0 0 6px;
+        }
         span.nav-l-logo-txt {
           font-weight: 700;
           font-size: 13px;

@@ -21,6 +21,10 @@ export default new Router({
       component: () => import(/* webpackChunkName: "about" */ './views/tools/code-mirror.vue')
     },
     {
+      path: '/highlight-js',
+      component: () => import(/* webpackChunkName: "about" */ './views/tools/highlight-js.vue')
+    },
+    {
       path: '/about',
       name: 'about',
       // route level code-splitting
