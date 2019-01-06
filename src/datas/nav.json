@@ -1,17 +1,105 @@
 {
-  "title": "GitBooks",
   "list": [
     {
-      "text": "Tools Books One",
-      "link": "https://ajimide.gitbooks.io/toolsbooksone/content"
+      "title": "GitBooks",
+      "list": [
+        {
+          "text": "Tools Books One",
+          "link": "https://ajimide.gitbooks.io/toolsbooksone/content"
+        },
+        {
+          "text": "React Learn",
+          "link": "https://ajimide.gitbooks.io/reactlearn/content/"
+        },
+        {
+          "text": "",
+          "link": ""
+        }
+      ]
     },
     {
-      "text": "React Learn",
-      "link": "https://ajimide.gitbooks.io/reactlearn/content/"
+      "title": "Shopping",
+      "list": [
+        {
+          "text": "网易严选",
+          "link": "http://you.163.com"
+        },
+        {
+          "text": "网易考拉",
+          "link": "https://www.kaola.com"
+        },
+        {
+          "text": "惠惠助手",
+          "link": "http://www.huihui.cn"
+        },
+        {
+          "text": "当当",
+          "link": "http://www.dangdang.com"
+        },
+        {
+          "text": "券妈妈",
+          "link": "http://www.quanmama.com/"
+        }
+      ]
     },
     {
-      "text": "",
-      "link": ""
+      "title": "二次无",
+      "list": [
+        {
+          "text": "TapTap",
+          "link": "https://www.taptap.com"
+        },
+        {
+          "text": "酷安",
+          "link": "https://www.coolapk.com"
+        }
+      ]
+    },
+    {
+      "title": "读书",
+      "list": [
+        {
+          "text": "知乎",
+          "link": "https://zhihu.com"
+        },
+        {
+          "text": "酷安",
+          "link": "https://www.coolapk.com"
+        }
+      ]
+    },
+    {
+      "title": "App",
+      "list": [
+        {
+          "text": "TeamViewer",
+          "link": "https://www.teamviewer.com/cn"
+        },
+        {
+          "text": "小米快传",
+          "link": ""
+        },
+        {
+          "text": "Cortana",
+          "link": ""
+        },
+        {
+          "text": "REMOTE",
+          "link": ""
+        },
+        {
+          "text": "AirDroid",
+          "link": ""
+        }
+      ]
+    },
+    {
+      "title": "GitBooks",
+      "list": []
+    },
+    {
+      "title": "GitBooks",
+      "list": []
     }
   ]
 }

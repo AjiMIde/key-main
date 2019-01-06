@@ -12,6 +12,15 @@ export default new Router({
       component: Home
     },
     {
+      path: '/test-1',
+      name: 'test',
+      component: () => import(/* webpackChunkName: "about" */ './views/test-1.vue')
+    },
+    {
+      path: '/code-mirror',
+      component: () => import(/* webpackChunkName: "about" */ './views/tools/code-mirror.vue')
+    },
+    {
       path: '/about',
       name: 'about',
       // route level code-splitting
