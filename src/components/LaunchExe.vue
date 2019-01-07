@@ -24,6 +24,9 @@ const EXES = [
   { id: 'protocoltim', href: 'ajiprotocoltim://', txt: 'TIM' },
   { id: 'protocolwechat', href: 'ajiprotocalwechat://', txt: 'Wechat' },
   { id: 'protocolfoxmail', href: 'ajiprotocalFoxmail://', txt: 'Foxmail' },
+  { id: 'protocolshadowsocks', href: 'ajiprotocalshadowsocks://', txt: 'ShadowSocks' },
+  { id: 'protocoleverything', href: 'ajiprotocaleverything://', txt: 'Everything' },
+  { id: 'protocolwox', href: 'ajiprotocalwox://', txt: 'Wox' },
   { id: 'protocolxxnet', href: 'ajiprotocalxxnet://', txt: 'XXnet', disabled: true },
   {
     id: 'protocolteambition',
@@ -35,8 +38,6 @@ const EXES = [
     href: 'https://www.tapd.cn/22298271/board/index?board_id=1122298271001000025&board_type=resource&view_type=board',
     txt: 'Tapd'
   },
-  { id: 'protocoleverything', href: 'ajiprotocaleverything://', txt: 'Everything' },
-  { id: 'protocolwox', href: 'ajiprotocalwox://', txt: 'Wox' }
 ]
 
 export default {
@@ -113,7 +114,7 @@ export default {
         a {
           text-decoration: none;
           color: #146bb0;
-          padding: 0px 8px;
+          padding: 6px 8px;
           display: inline-block;
         }
       }
