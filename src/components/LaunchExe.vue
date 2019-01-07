@@ -27,6 +27,7 @@ const EXES = [
   { id: 'protocolshadowsocks', href: 'ajiprotocalshadowsocks://', txt: 'ShadowSocks' },
   { id: 'protocoleverything', href: 'ajiprotocaleverything://', txt: 'Everything' },
   { id: 'protocolwox', href: 'ajiprotocalwox://', txt: 'Wox' },
+  { id: 'protocolonedrive', href: 'ajiprotocalonedirve://', txt: 'OneDrive' },
   { id: 'protocolxxnet', href: 'ajiprotocalxxnet://', txt: 'XXnet', disabled: true },
   {
     id: 'protocolteambition',
