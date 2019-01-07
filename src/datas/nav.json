@@ -8,6 +8,14 @@
           "link": "https://ajimide.gitbooks.io/toolsbooksone/content"
         },
         {
+          "text": "Tools Books Two",
+          "link": "https://ajimide.gitbooks.io/toolsbookstwo/content"
+        },
+        {
+          "text": "My JavaScript",
+          "link": "https://ajimide.gitbooks.io/myjavascript/content"
+        },
+        {
           "text": "React Learn",
           "link": "https://ajimide.gitbooks.io/reactlearn/content/"
         }
@@ -92,6 +100,10 @@
     {
       "title": "App",
       "list": [
+        {
+          "text": "Wox",
+          "link": "https://github.com/Wox-launcher/Wox"
+        },
         {
           "text": "TeamViewer",
           "link": "https://www.teamviewer.com/cn"

@@ -1,7 +1,7 @@
 <template>
   <div class="time-to-rest">
-    <div class="time-clock">{{time}}</div>
-    <el-btn type="primary" size="small" @click="setNotify('TEST', 'TEST', '')">测试Chrome Notification</el-btn>
+    <span class="time-clock">{{time}} &nbsp;</span>
+    <el-btn type="primary" size="mini" @click="setNotify('TEST', 'TEST', '')">test notification</el-btn>
   </div>
 </template>
 
@@ -49,6 +49,7 @@ export default {
           this.setNotify('TIME', 'WATER')
         }
         if (m === '00' && s === '10' && !this.matterTip.iKnown) {
+          this.matterTip.iKnown = true
           window.alert('TIME' + 'WATER')
         }
       }, 1000)

@@ -29,7 +29,7 @@ export default {
             icon: icon
           })
         } else {
-          window.alert('请允许使用桌面通知~~')
+          console.error('请允许使用桌面通知~~')
           return null
         }
       })
