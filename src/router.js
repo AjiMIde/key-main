@@ -12,9 +12,18 @@ export default new Router({
       component: Home
     },
     {
+      path: '/secret',
+      name: 'secret',
+      component: () => import(/* webpackChunkName: "about" */ './views/secret.vue')
+    },
+    {
       path: '/test-1',
       name: 'test',
       component: () => import(/* webpackChunkName: "about" */ './views/test-1.vue')
+    },
+    {
+      path: '/test-2',
+      component: () => import(/* webpackChunkName: "about" */ './views/test-2.vue')
     },
     {
       path: '/code-mirror',

@@ -1,7 +1,7 @@
 <template>
   <div class="launch-exe">
     <div class="nav-exe">
-      <span class="exe-item" v-for="(item, index) in exe.exes" :key="index" v-if="!item.disabled">
+      <span class="exe-item" v-for="(item, index) in exe.exes" :key="index">
         <a :id='item.id' :href='item.href'
            :target="item.href.indexOf('http') === 0 ? '_blank': ''"> {{item.txt}} </a>
       </span>
@@ -38,7 +38,7 @@ const EXES = [
     id: 'protocoltapd',
     href: 'https://www.tapd.cn/22298271/board/index?board_id=1122298271001000025&board_type=resource&view_type=board',
     txt: 'Tapd'
-  },
+  }
 ]
 
 export default {
@@ -49,7 +49,7 @@ export default {
   data () {
     return {
       exe: {
-        exes: EXES,
+        exes: [],
         delay: 30,          // 20秒后逐个启动
         interval: 5,       // 间隔多少秒
         launched: false,    // 已经执行过了
@@ -103,6 +103,9 @@ export default {
     if (!this.exe.launched) {
       this.exe_launchExe()
     }
+    this.exe.exes = EXES.filter(item => {
+      return item.disabled !== true
+    })
   }
 }
 </script>

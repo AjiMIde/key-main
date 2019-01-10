@@ -72,7 +72,7 @@
       ]
     },
     {
-      "title": "二次无",
+      "title": "二次元",
       "list": [
         {
           "text": "TapTap",
@@ -81,6 +81,10 @@
         {
           "text": "酷安",
           "link": "https://www.coolapk.com"
+        },
+        {
+          "text": "DxOMark",
+          "link": "https://www.dxomark.com/cn"
         }
       ]
     },
@@ -127,7 +131,7 @@
       ]
     },
     {
-      "title": "GitBooks",
+      "title": "科技",
       "list": []
     },
     {
