@@ -5,7 +5,7 @@
 
 <script>
 // import qs from 'qs'
-import moment from 'moment'
+// import moment from 'moment'
 
 export default {
   components: {},
@@ -15,16 +15,11 @@ export default {
   methods: {},
   mounted () {
     console.log(window.m = this)
-    console.log(window.mt = moment)
-    const m = moment
-    const l = console.log
-    m.locale('zh-cn')
-    l(m().format('YYYY年MM月DD日 hh时mm分ss秒'))
-    l(m().format('dddd MMM Do YY'))
-    l(m().format())
-    l('------')
-    l(moment('20100101', 'YYYYMMDD').fromNow())
-    l(m().startOf('day').fromNow())
+    this.axios.get('https://github.com/AjiMIde/company-summary/blob/master/580-wechat-pay/0.wechat-login-logic.md').then(res => {
+      console.log(res)
+    }).catch(err => {
+      console.log(err)
+    })
   }
 }
 </script>
