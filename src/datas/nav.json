@@ -40,9 +40,19 @@
           "text": "React China",
           "block": "true",
           "link": "https://react.docschina.org"
-        }, {
+        },
+        {
           "text": "React",
           "link": "https://reactjs.org"
+        }
+      ]
+    },
+    {
+      "title": "BingGo",
+      "list": [
+        {
+          "text": "Css",
+          "link": "#/css"
         }
       ]
     },
@@ -96,8 +106,23 @@
           "link": "https://zhihu.com"
         },
         {
+          "type": "br"
+        },
+        {
           "text": "酷安",
           "link": "https://www.coolapk.com"
+        },
+        {
+          "text": "掘金",
+          "link": "https://juejin.im"
+        },
+        {
+          "text": "掘金酱",
+          "link": "http://e.xitu.io"
+        },
+        {
+          "text": "开源中国",
+          "link": "https://www.oschina.net"
         }
       ]
     },

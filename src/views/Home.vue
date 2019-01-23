@@ -18,8 +18,9 @@
           <!--<img :src="`${ baseUrl }chick(1).png`" alt="" style="display: none">-->
           <h4 class="nav-l-title">{{item.title}}</h4>
           <div class="nav-l-item">
-            <span v-for="(subItem, index) in item.list" :key="index">
-              <span class="nav-l-logo-txt" v-if="!subItem.link">{{subItem.text.substr(0,1)}}</span>
+            <span v-for="(subItem, index) in item.list" :key="index" :class="{'nav-l-item-blk': subItem.type === 'br'}">
+              <span class="nav-l-br" v-if="subItem.type === 'br'"></span>
+              <span class="nav-l-logo-txt" v-else-if="!subItem.link">{{subItem.text.substr(0,1)}}</span>
               <span class="nav-l-logo-txt"
                     v-else-if="subItem.link.indexOf('http') === -1">{{subItem.text.substr(0, 1)}}</span>
               <span class="nav-l-logo" v-else>
@@ -132,7 +133,11 @@ export default {
         margin: 0 0 12px 0;
       }
       .nav-l-item {
+        > span.nav-l-item-blk {
+          display: block;
+        }
         > span {
+          display: inline-block;
           padding: 0 0 0 6px;
         }
         span.nav-l-logo-txt {
