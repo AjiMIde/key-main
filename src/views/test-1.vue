@@ -1,6 +1,7 @@
 <template>
   <div class="test-1">
     <div v-html="xx"></div>
+    <div><a href="../../public/test/男人装-杨幂.pdf">男人装</a></div>
   </div>
 </template>
 

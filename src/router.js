@@ -17,6 +17,10 @@ export default new Router({
       component: () => import(/* webpackChunkName: "about" */ './views/secret.vue')
     },
     {
+      path: '/secret2',
+      component: () => import(/* webpackChunkName: "about" */ './views/secret2.vue')
+    },
+    {
       path: '/test-1',
       name: 'test',
       component: () => import(/* webpackChunkName: "about" */ './views/test-1.vue')
