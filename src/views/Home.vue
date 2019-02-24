@@ -14,6 +14,12 @@
 
     <el-row class="nav-row">
       <el-col :span="24" class="nav-col">
+        <dashboard-google></dashboard-google>
+      </el-col>
+    </el-row>
+
+    <el-row class="nav-row">
+      <el-col :span="24" class="nav-col">
         <div class="nav-list" v-for="(item, i) in this.nav.list" :key="i">
           <!--<img :src="`${ baseUrl }chick(1).png`" alt="" style="display: none">-->
           <h4 class="nav-l-title">{{item.title}}</h4>
@@ -46,6 +52,7 @@ import LaunchExe from '@/components/LaunchExe.vue'
 import Nav from '@/datas/nav.json'
 // import FzsStorage from '../libs/FzsStorage'
 // import FzsDate from '../libs/FzsDate'
+import DashboardGoogle from './components/DashboardGoogle'
 
 const MOTTO = [
   '如果你特别迷恋一个人，那你一定配不上他。',
@@ -66,7 +73,8 @@ export default {
     'el-col': Col,
     HelloWorld,
     TimeToRest,
-    LaunchExe
+    LaunchExe,
+    DashboardGoogle
   },
   data () {
     return {
@@ -118,10 +126,10 @@ export default {
         padding: 0 12px 0px 12px;
         margin-bottom: 12px;
         > div {
-          background-color: rgba(255, 255, 255, .8);
+          /*background-color: rgba(255, 255, 255, .8);*/
           padding: 20px;
           border-radius: 4px;
-          box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+          //box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
         }
       }
     }

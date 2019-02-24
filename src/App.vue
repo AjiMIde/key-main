@@ -11,12 +11,14 @@
 <style lang="scss">
   html {
     background-image: url('assets/photo-1489573280374-2e193c63726c.jpg');
+    background-attachment: fixed;
+    background-color: #828282 !important;
+    background-blend-mode: color-burn;
   }
 
   body {
     margin: 0;
     padding: 0;
-    background-color: rgba(238, 238, 238, .5);
   }
   html,body {
     width: 100%;
