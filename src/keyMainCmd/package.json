@@ -1,0 +1,23 @@
+{
+  "name": "my-web-root",
+  "version": "1.0.0",
+  "description": "just a simple thing to tip you do something",
+  "main": "key-main.js",
+  "scripts": {
+    "test": "null"
+  },
+  "repository": {
+    "type": "git",
+    "url": "null"
+  },
+  "keywords": [
+    "null"
+  ],
+  "author": "Aji",
+  "license": "MIT",
+  "devDependencies": {
+    "colors": "^1.3.3",
+    "console-color-mr": "^2.0.0",
+    "node-notifier": "^5.4.0"
+  }
+}
