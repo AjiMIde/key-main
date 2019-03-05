@@ -30,6 +30,8 @@ function getRandomConsoleColor () {
   return array[i]
 }
 
+const INTERVAl = 1000*60 // 1分钟
+
 setInterval(() => {
   const date = new Date()
   const h = date.getHours()
@@ -78,7 +80,7 @@ setInterval(() => {
     console.log(`${timeStr} : ${content} `[getRandomConsoleColor()])
     windowsNotify(timeStr, content)
   }
-}, 1000)
+}, INTERVAl)
 
 module.exports = {
   windowsNotify
