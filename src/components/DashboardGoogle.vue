@@ -157,8 +157,8 @@
 </template>
 
 <script>
-import '../../styles/dashboard-google-iconfont.js'
-import FzsStorage from '../../libs/FzsStorage'
+import '../styles/dashboard-google-iconfont.js'
+import FzsStorage from '../libs/FzsStorage'
 import TimeClock from './TimeClock'
 
 const weeks = ['零', '一', '二', '三', '四', '五', '六', '日']
