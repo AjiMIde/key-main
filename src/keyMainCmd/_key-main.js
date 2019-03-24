@@ -11,6 +11,7 @@ async function launchNotifyToPlan () {
     setTimeout(() => {
       console.log('Ready to Work. Launching the WindowNotify now...'.green)
       NotifyToPlan.windowsNotify('Go', 'FIGHTING!!!')
+      NotifyToPlan.start()
       resolve()
     }, 5000)
   })
@@ -18,9 +19,9 @@ async function launchNotifyToPlan () {
 
 async function launchExecApps () {
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
+    setTimeout(async () => {
       console.log('Launching exe, just wait some seconds...'.green)
-      ExecApplication.start()
+      await ExecApplication.start()
       resolve()
     }, 5000)
   })
@@ -37,10 +38,9 @@ async function launchKeyMainWeb () {
 }
 
 async function index () {
-  console.log('Hello. Welcome Aji'.green)
-
-  await launchNotifyToPlan()
+  console.log('Hello. Welcome Aji'.bold.italic)
   await launchExecApps()
+  await launchNotifyToPlan()
   await launchKeyMainWeb()
 }
 

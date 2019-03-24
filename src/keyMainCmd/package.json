@@ -19,5 +19,8 @@
     "colors": "^1.3.3",
     "console-color-mr": "^2.0.0",
     "node-notifier": "^5.4.0"
+  },
+  "dependencies": {
+    "wallpaper": "^4.3.0"
   }
 }
