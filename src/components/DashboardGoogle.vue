@@ -40,14 +40,14 @@
                   <use xlink:href="#icon-pen"></use>
                 </svg>
               </div>
-              <div class="gp-todo-tb-pic">
+              <div class="gp-todo-tb-pic" @click="tbMoreClick">
                 <svg class="gp-icon gp-icon-pic" aria-hidden="true">
                   <use xlink:href="#icon-pic"></use>
                 </svg>
               </div>
             </div>
             <div class="gp-todo-list">
-              <div class="gp-todo-lt-item" v-for="(item, index) in wData.forecasts" :key="index">
+              <div class="gp-todo-lt-item" v-for="(item, index) in wData.forecastsLeast" :key="index">
                 <div class="gp-todo-lt-title">星期{{weeks[item.week]}}</div>
                 <div class="gp-todo-lt-content">{{item.dayTemp}}°C ~ {{item.nightTemp}}°C {{item.dayWeather}}
                   {{item.dayWindDir}} {{item.dayWindPower}}级
@@ -157,8 +157,11 @@
 </template>
 
 <script>
+/**
+ * 天气接口取自Amap 高德地图
+ */
 import '../styles/dashboard-google-iconfont.js'
-import FzsStorage from '../libs/FzsStorage'
+// import FzsStorage from '../libs/FzsStorage'
 import TimeClock from './TimeClock'
 
 const weeks = ['零', '一', '二', '三', '四', '五', '六', '日']
@@ -177,7 +180,8 @@ export default {
         windDirection: '',
         windPower: '',
 
-        forecasts: []
+        forecastsLeast: [],
+        forecastsAll: []
       }
     }
   },
@@ -193,53 +197,23 @@ export default {
         const city = '广州市'
 
         weather.getLive(city, (err, data) => {
+          console.log(err)
           Object.assign(this.wData, data)
         })
         weather.getForecast(city, (err, data) => {
-          console.log(err, data)
-          this.wData.forecasts = [data.forecasts[1], data.forecasts[2]]
+          console.log(err)
+          this.wData.forecastsLeast = [data.forecasts[1], data.forecasts[2]]
+          this.wData.forecastsAll = data.forecasts
         })
       })
     },
-    getRawWeatherData () {
-      this.axios.get(`http://www.weather.com.cn/weather1d/101280101.shtml#search`).then(res => {
-        const rawData = res.data
-        console.log(window.rd = rawData)
-        const tempDiv = document.createElement('div')
-        tempDiv.innerHTML = rawData
-
-        this.wData.computedDiv = tempDiv.getElementsByClassName('today')[1]
-        FzsStorage.set('weatherData', this.wData.computedDiv.innerHTML)
-        this.handleWeather()
-      }).catch(err => {
-        console.error(err)
-      })
-    },
-    handleWeather () {
-      const { computedDiv } = this.wData
-      this.wData.city = computedDiv.getElementsByClassName('xyn-weather-box')[0].getElementsByTagName('h2')[0].getElementsByTagName('span')[0].innerText
-      const values1 = computedDiv.getElementsByTagName('input')[1].value.split(' ')
-      this.wData.week = values1[1]
-      this.wData.scopeTem = values1[5]
-      this.wData.currentTem = computedDiv.getElementsByClassName('tem')[0].getElementsByTagName('span')[0].innerText
-      this.wData.wind = computedDiv.getElementsByClassName('win')[0].getElementsByTagName('span')[0].innerText
-      this.wData.dayWeather = computedDiv.getElementsByClassName('wea')[0].innerText
-      this.wData.nightWeather = computedDiv.getElementsByClassName('wea')[1].innerText
-
-      console.log(computedDiv, this.wData)
+    tbMoreClick () {
+      this.wData.forecastsLeast = this.wData.forecastsAll
     }
   },
   mounted () {
     this.getAMapWeather()
     console.log(window.dg = this)
-    if (FzsStorage.get('weatherData')) {
-      // const div = document.createElement('div')
-      // div.innerHTML = FzsStorage.get('weatherData')
-      // this.wData.computedDiv = div
-      // this.handleWeather()
-    } else {
-      // this.getRawWeatherData()
-    }
   }
 }
 </script>
@@ -312,6 +286,8 @@ export default {
         }
         .gp-todo-list {
           margin: 5px 0 0 0;
+          max-height: 180px;
+          overflow: scroll;
           .gp-todo-lt-item {
             margin-top: 3px;
             padding: 12px 18px;
