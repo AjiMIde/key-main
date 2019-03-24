@@ -10,9 +10,9 @@
 
 <style lang="scss">
   html {
-    background-image: url('assets/photo-1489573280374-2e193c63726c.jpg');
+    /*background-image: url('assets/photo-1489573280374-2e193c63726c.jpg');*/
     background-attachment: fixed;
-    background-color: #828282 !important;
+    /*background-color: #828282 !important;*/
     background-blend-mode: color-burn;
   }
 
@@ -31,7 +31,7 @@
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    width: 1280px;
+    /*width: 1280px;*/
     margin: 0 auto;
   }
 

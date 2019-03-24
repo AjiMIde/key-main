@@ -6,7 +6,7 @@
 
 <script>
 // import qs from 'qs'
-import TimeClock from './components/TimeClock'
+import TimeClock from '../components/TimeClock'
 
 export default {
   components: {

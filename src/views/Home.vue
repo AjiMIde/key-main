@@ -4,12 +4,12 @@
     <HelloWorld v-if="false" msg="Welcome to Your Vue.js App"/>
 
     <el-row class="nav-row">
-      <el-col :span="12" class="nav-col">
-        <TimeToRest></TimeToRest>
-      </el-col>
-      <el-col :span="12" class="nav-col">
-        <LaunchExe></LaunchExe>
-      </el-col>
+      <!--<el-col :span="12" class="nav-col">-->
+        <!--<TimeToRest></TimeToRest>-->
+      <!--</el-col>-->
+      <!--<el-col :span="12" class="nav-col">-->
+        <!--<LaunchExe></LaunchExe>-->
+      <!--</el-col>-->
     </el-row>
 
     <el-row class="nav-row">
@@ -46,19 +46,15 @@
 // @ is an alias to /src
 import { Row, Col } from 'element-ui'
 import HelloWorld from '@/components/HelloWorld.vue'
-import TimeToRest from '@/components/TimeToRest.vue'
-import LaunchExe from '@/components/LaunchExe.vue'
+// import TimeToRest from '@/components/TimeToRest.vue'
+// import LaunchExe from '@/components/LaunchExe.vue'
 
 import Nav from '@/datas/nav.json'
 // import FzsStorage from '../libs/FzsStorage'
 // import FzsDate from '../libs/FzsDate'
-import DashboardGoogle from './components/DashboardGoogle'
+import DashboardGoogle from '@/components/DashboardGoogle'
 
 const MOTTO = [
-  '如果你特别迷恋一个人，那你一定配不上他。',
-  '幸亏当事者迷，不然真的看清事实真相，很多人是承受不来的。',
-  '总有这样的人，该干活的时候职业不起来，玩的时候又放不开。',
-  '精力是否充沛，是身体好不好的结果。跟是否拥有积极乐观的心态关系不大。',
   '天天念叨人生、社会、道德的人慧根往往不高。真正有悟性的人，已经把这些思想都视为理所当然的，内化到自己的行动中去了，在物质世界中获得成功。',
   '有时我们觉得别人误会了自己，其实是我们误会了自己。',
   '如果你知道一些事情有意思，但不能去做而失落，那还好。要是觉得什么都没意思，应该就是抑郁症。',
@@ -72,8 +68,8 @@ export default {
     'el-row': Row,
     'el-col': Col,
     HelloWorld,
-    TimeToRest,
-    LaunchExe,
+    // TimeToRest,
+    // LaunchExe,
     DashboardGoogle
   },
   data () {
@@ -133,7 +129,6 @@ export default {
         }
       }
     }
-
     .nav-list {
       margin-bottom: 12px;
       .nav-l-title {
