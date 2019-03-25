@@ -1,26 +1,32 @@
 <template>
-  <div class="books">
-    <el-row class="nav-row">
-      <el-col :span="4" class="nav-col">
-        <form action="">
-          <select name="" id="" @change="booksSelectChange($event)">
-            <option value="Vue2.x">Vue2.x</option>
-            <option value="StylesBooks">StylesBooks</option>
-          </select>
-        </form>
-        <div class="summary" v-html="summary" @click="getContent($event)"></div>
-      </el-col>
-      <el-col :span="20" class="nav-col">
-        <div v-html="content" @click="getContent($event)"></div>
-      </el-col>
-    </el-row>
-
+  <div class="books" :style="{height: height + 'px'}">
+    <div class="container">
+      <el-row class="nav-row">
+        <el-col :span="6" class="nav-col summary">
+          <form action="">
+            <select name="" id="" @change="booksSelectChange($event)">
+              <option value="Vue2.x">Vue2.x</option>
+              <option value="StylesBooks">StylesBooks</option>
+            </select>
+          </form>
+          <div class="summary-list" v-html="summary" @click="getContent($event)"></div>
+        </el-col>
+        <el-col :span="18" class="nav-col content">
+          <div class="content-title">{{contentTitle}}</div>
+          <div class="main-content markdown-body" v-html="content" @click="getContent($event)">
+          </div>
+        </el-col>
+      </el-row>
+    </div>
   </div>
 </template>
 
 <script>
 import { Row, Col } from 'element-ui'
 import Marked from 'marked'
+
+import hljs from 'highlight.js'
+import 'highlight.js/styles/github.css'
 
 export default {
   name: 'books',
@@ -30,7 +36,10 @@ export default {
   },
   data () {
     return {
-      currentBook: 'Vue2.x',
+      height: 0,
+      contentTitle: '',
+      activeSummaryItem: null,
+      currentBook: 'StylesBooks',
       summary: '',
       content: ''
     }
@@ -63,6 +72,21 @@ export default {
         })
       })
     },
+    setWindowHeight () {
+      this.height = window.innerHeight
+      window.addEventListener('resize', evt => {
+        this.height = window.innerHeight
+      })
+    },
+    highLightCode () {
+      this.$nextTick(() => {
+        window.setTimeout(() => {
+          document.querySelectorAll('pre code').forEach((block) => {
+            hljs.highlightBlock(block)
+          })
+        }, 0)
+      })
+    },
     booksSelectChange ($e) {
       this.currentBook = $e.target.value
       this.getSummary()
@@ -78,18 +102,39 @@ export default {
         console.error('No any book be choosen')
       }
     },
+    setContentTitle (el) {
+      let ary = []
+      while (el && el.classList.contains('summary-list') === false) {
+        if (el.nodeName === 'LI') {
+          const aEle = el.querySelector('a')
+          if (aEle) {
+            ary.push(aEle.innerText)
+          }
+        }
+        el = el.parentElement
+      }
+      this.contentTitle = ary.reverse().join(' / ')
+    },
     getContent ($e) {
+      if (this.activeSummaryItem && $e.target.getAttribute('href')) {
+        this.activeSummaryItem.classList.remove('active')
+      }
+      $e.target.classList.add('active')
+      this.activeSummaryItem = $e.target
+
       let href = $e.target.getAttribute('href')
       if (href) {
         href.replace(/^\.\//, '')
         this._handHttp(href).then(data => {
           this.content = Marked(data)
+          this.highLightCode()
         }, err => {
           console.error(err)
         })
       } else {
         console.error('Summary href not found')
       }
+      this.setContentTitle($e.target)
       $e.preventDefault()
       return false
     },
@@ -101,19 +146,58 @@ export default {
     }
   },
   mounted () {
+    window.bk = this
+    this.setWindowHeight()
     this.getSummary()
   }
 }
 </script>
 
 <style lang="scss">
+  @import "~bee-mui/src/styles/bee.m.markdown";
   .books {
-    $color: #364149;
-    color: #fff;
-    font-size: 18px;
+    $bg-c-1: whitesmoke;
+    $bg-c-white: #fff;
+    $ft-c-1: #364149;
+    $ft-c-2: #ff4340;
+    $ft-c-green: #00bb00;
     text-align: left;
+    background-color: $bg-c-1;
+    overflow: hidden;
+    .container {
+      width: 1080px;
+      position: absolute;
+      top: 30px;
+      bottom: 30px;
+      left: 50%;
+      margin-left: -540px;
+    }
+    .nav-row, .summary, .content {
+      height: 100%;
+    }
+    .summary, .content {
+      border-radius: 2px;
+      position: relative;
+    }
     .summary {
-      color: $color;
+      background-color: $bg-c-white;
+      padding: 20px 20px;
+      overflow: auto;
+      .summary-list {
+        overflow: auto;
+        position: absolute;
+        left: 0;
+        right: 0;
+        padding: 0 20px;
+        top: 70px;
+        bottom: 0;
+      }
+      form {
+        select {
+          width: 100%;
+          height: 30px;
+        }
+      }
       ul, li {
         list-style: none;
       }
@@ -126,10 +210,13 @@ export default {
       }
       a {
         font-size: 14px;
-        color: $color;
+        color: $ft-c-1;
         text-decoration: none;
         &:hover {
-          color: #00bb00;
+          color: $ft-c-green;
+        }
+        &.active {
+          color: $ft-c-green;
         }
       }
       & > ul > li > a {
@@ -139,6 +226,54 @@ export default {
         li {
 
         }
+      }
+    }
+    .content {
+      padding: 0 0 0 20px;
+      .content-title {
+        background: $bg-c-white;
+        padding: 0 20px;
+        line-height: 40px;
+        box-shadow: inset 0px -1px 1px -1px #333;
+      }
+      .main-content {
+        position: absolute;
+        top: 40px;
+        bottom: 0;
+        right: 0;
+        left: 20px;
+        padding: 10px 20px;
+        background: $bg-c-white;
+        overflow: auto;
+      }
+    }
+    .summary, .summary-list, .main-content {
+      &::-webkit-scrollbar { // 整个滚动条.
+        width: 6px;
+        height: 6px;
+      }
+      &::-webkit-scrollbar-button { // 滚动条上的按钮 (上下箭头).
+        background-color: $ft-c-green;
+        display: block;
+        height: 4px;
+      }
+      &::-webkit-scrollbar-thumb { // 滚动条上的滚动滑块.
+        background-color: #dddddd;
+        background-clip: padding-box;
+        min-height: 28px;
+      }
+      &::-webkit-scrollbar-thumb:hover {
+        background-color: #bbb;
+      }
+
+      &::-webkit-scrollbar-track { // 滚动条轨道.
+      }
+      &::-webkit-scrollbar-track-piece { // 滚动条没有滑块的轨道部分.
+        background-color: #f8f8f8;
+      }
+      &::-webkit-scrollbar-corner { //当同时有垂直滚动条和水平滚动条时交汇的部分.
+      }
+      &::-webkit-resizer { // 某些元素的corner部分的部分样式(例:textarea的可拖动按钮) . &::-webkit-scrollbar-button {
       }
     }
   }
