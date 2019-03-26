@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "bee-mui": "^0.0.1",
+    "bee-mui": "^0.0.2",
+    "codemirror": "^5.45.0",
     "element-ui": "^2.4.11",
     "highlight.js": "^9.15.6",
     "marked": "^0.6.0",

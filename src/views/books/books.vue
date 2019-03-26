@@ -12,8 +12,8 @@
           <div class="summary-list" v-html="summary" @click="getContent($event)"></div>
         </el-col>
         <el-col :span="18" class="nav-col content">
-          <div class="content-title">{{contentTitle}}</div>
-          <div class="main-content markdown-body" v-html="content" @click="getContent($event)">
+          <div class="content-title"><span v-for="(item, index) in contentTitle" :key="index">{{item}}</span></div>
+          <div class="main-content markdown-body" v-html="content" @dblclick="copyCode($event)">
           </div>
         </el-col>
       </el-row>
@@ -37,7 +37,7 @@ export default {
   data () {
     return {
       height: 0,
-      contentTitle: '',
+      contentTitle: [],
       activeSummaryItem: null,
       currentBook: 'StylesBooks',
       summary: '',
@@ -71,6 +71,41 @@ export default {
           reject(text, e)
         })
       })
+    },
+    doCopyAction (ele) {
+      if (ele && ele.select && document.execCommand) {
+        ele.select()
+        if (ele.createTextRange && ele.execCommand) {
+          ele.createTextRange()
+          ele.execCommand('Copy')
+        } else {
+          document.execCommand('Copy')
+        }
+        console.info('copied')
+      } else if (window.clipboardData && window.clipboardData.setData) {
+        window.clipboardData.setData('Text', this.tradeResult.tradeOrderId || '')
+        console.info('copied')
+      } else if (document.execCommand) {
+        const range = document.createRange()
+        range.selectNodeContents(ele)
+        const selection = window.getSelection()
+        selection.removeAllRanges()
+        selection.addRange(range)
+        document.execCommand('copy')
+        console.info('copied')
+      } else {
+        console.error('No copy function in your devices')
+      }
+    },
+    copyCode ($e) {
+      console.log($e.target)
+      let el = $e.target
+      while (el && el.classList.contains('main-content') === false) {
+        if (el.nodeName === 'PRE') {
+          this.doCopyAction(el)
+        }
+        el = el.parentElement
+      }
     },
     setWindowHeight () {
       this.height = window.innerHeight
@@ -108,15 +143,21 @@ export default {
         if (el.nodeName === 'LI') {
           const aEle = el.querySelector('a')
           if (aEle) {
-            ary.push(aEle.innerText)
+            ary.push(aEle.innerText + ' / ')
           }
         }
         el = el.parentElement
       }
-      this.contentTitle = ary.reverse().join(' / ')
+      if (ary.length > 0) {
+        let firstOne = ary.shift()
+        firstOne = firstOne.slice(0, firstOne.length - 3)
+        ary = [firstOne].concat(ary)
+        this.contentTitle = ary.reverse()
+      }
     },
     getContent ($e) {
-      if (this.activeSummaryItem && $e.target.getAttribute('href')) {
+      console.log($e.target)
+      if (this.activeSummaryItem) {
         this.activeSummaryItem.classList.remove('active')
       }
       $e.target.classList.add('active')
@@ -155,12 +196,14 @@ export default {
 
 <style lang="scss">
   @import "~bee-mui/src/styles/bee.m.markdown";
+
   .books {
     $bg-c-1: whitesmoke;
     $bg-c-white: #fff;
-    $ft-c-1: #364149;
+    $ft-c-black: #364149;
     $ft-c-2: #ff4340;
     $ft-c-green: #00bb00;
+    $ft-c-grey: #bbbbbb;
     text-align: left;
     background-color: $bg-c-1;
     overflow: hidden;
@@ -210,7 +253,7 @@ export default {
       }
       a {
         font-size: 14px;
-        color: $ft-c-1;
+        color: $ft-c-black;
         text-decoration: none;
         &:hover {
           color: $ft-c-green;
@@ -235,6 +278,12 @@ export default {
         padding: 0 20px;
         line-height: 40px;
         box-shadow: inset 0px -1px 1px -1px #333;
+        > span {
+          color: $ft-c-grey;
+          &:last-child {
+            color: $ft-c-black;
+          }
+        }
       }
       .main-content {
         position: absolute;
