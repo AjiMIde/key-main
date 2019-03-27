@@ -13,6 +13,7 @@
     "bee-mui": "^0.0.2",
     "codemirror": "^5.45.0",
     "element-ui": "^2.4.11",
+    "fs-extra": "^7.0.1",
     "highlight.js": "^9.15.6",
     "marked": "^0.6.0",
     "moment": "^2.23.0",

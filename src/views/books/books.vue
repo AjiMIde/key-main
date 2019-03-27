@@ -5,8 +5,7 @@
         <el-col :span="6" class="nav-col summary">
           <form action="">
             <select name="" id="" @change="booksSelectChange($event)">
-              <option value="Vue2.x">Vue2.x</option>
-              <option value="StylesBooks">StylesBooks</option>
+              <option v-for="(o, i) in books" :value="o" :key="i">{{o}}</option>
             </select>
           </form>
           <div class="summary-list" v-html="summary" @click="getContent($event)"></div>
@@ -27,7 +26,11 @@ import Marked from 'marked'
 
 import hljs from 'highlight.js'
 import 'highlight.js/styles/github.css'
-
+const BOOKS = [
+  'Vue2.x',
+  'StylesBooks',
+  'node-js'
+]
 export default {
   name: 'books',
   components: {
@@ -39,6 +42,7 @@ export default {
       height: 0,
       contentTitle: [],
       activeSummaryItem: null,
+      books: BOOKS,
       currentBook: 'StylesBooks',
       summary: '',
       content: ''
