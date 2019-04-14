@@ -1,3 +1,7 @@
+<!--https://www.baidu.com/s?ie=UTF-8&wd=Thin%20Admin%20Template-->
+<!--http://www.jqueryfuns.com/resource/586-->
+<!--http://www.jqueryfuns.com/resource/view/586-->
+
 <template>
   <div class="home">
     <!--<img alt="Vue logo" src="../assets/logo.png">-->
