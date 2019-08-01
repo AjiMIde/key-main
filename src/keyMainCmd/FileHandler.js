@@ -1,4 +1,4 @@
-﻿var fs = require('fs');//引入文件读取模块
+var fs = require('fs')// 引入文件读取模块
 
 const readFilesSync = (dir, deep = false) => {
   const dirs = fs.readdirSync(dir)
@@ -18,4 +18,3 @@ const readFilesSync = (dir, deep = false) => {
 }
 
 module.exports.readFilesSync = readFilesSync
-

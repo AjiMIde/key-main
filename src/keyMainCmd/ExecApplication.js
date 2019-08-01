@@ -1,12 +1,12 @@
-﻿const c = require('child_process')
+const c = require('child_process')
 
 const apps = [
   { txt: 'TIM', path: 'H:\\NormalProgram\\Tecent\\Tim\\Bin\\QQScLauncher.exe' },
   { txt: 'Wechat', path: 'C:\\Aji\\NormalProgram\\Tencent\\WeChat\\WeChat.exe' },
   { txt: 'FoxMail', path: 'C:\\Aji\\NormalProgram\\Foxmail 7.2\\Foxmail.exe' },
   { txt: 'ShadowSock', path: 'C:\\Aji\\DevProgram\\ssr-win\\ShadowsocksR-dotnet4.0.exe' },
-  { txt: 'Everything', path: 'C:\\Aji\\DevProgram\\Everything\\Everything.exe' },
-  { txt: 'Wox', path: 'C:\\Users\\AJI\\AppData\\Local\\Wox\\Wox.exe' },
+  // { txt: 'Everything', path: 'C:\\Aji\\DevProgram\\Everything\\Everything.exe' },
+  // { txt: 'Wox', path: 'C:\\Users\\AJI\\AppData\\Local\\Wox\\Wox.exe' },
   { txt: 'OneDirve', path: 'C:\\Users\\AJI\\AppData\\Local\\Microsoft\\OneDrive\\OneDrive.exe' },
   {
     txt: 'Teambition',

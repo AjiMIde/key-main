@@ -1,4 +1,4 @@
-﻿const c = require('child_process')
+const c = require('child_process')
 
 require('console-color-mr')
 require('colors')

@@ -11,9 +11,8 @@
           <div class="summary-list" v-html="summary" @click="getContent($event)"></div>
         </el-col>
         <el-col :span="18" class="nav-col content">
-          <div class="content-title"><span v-for="(item, index) in contentTitle" :key="index">{{item}}</span></div>
-          <div class="main-content markdown-body" v-html="content" @dblclick="copyCode($event)">
-          </div>
+          <div class="content-title"><span v-for="(item, index) in contentTitle" :key="index">{{item}} <span v-if="index < contentTitle.length - 1"> / </span> </span></div>
+          <div class="main-content markdown-body" v-html="content" @dblclick="copyCode($event)"></div>
         </el-col>
       </el-row>
     </div>
@@ -26,10 +25,13 @@ import Marked from 'marked'
 
 import hljs from 'highlight.js'
 import 'highlight.js/styles/github.css'
+
 const BOOKS = [
   'Vue2.x',
   'StylesBooks',
-  'node-js'
+  'mini-program-books',
+  'node-js',
+  'vue-books'
 ]
 export default {
   name: 'books',
@@ -76,6 +78,38 @@ export default {
         })
       })
     },
+
+    handlerIframe () {
+      if (['10.20.11.17', '127.0.0.1', 'localhost'].indexOf(window.location.hostname) >= 0) {
+        window.setTimeout(() => {
+          const iframes = document.getElementsByTagName('iframe')
+          for (let i = 0; i < iframes.length; i++) {
+            let iframe = iframes[i]
+            let src = iframe.src
+            src = src.replace('https://ajimide.github.io/key-main', 'http://127.0.0.1:' + window.location.port)
+            iframe.src = src
+          }
+        }, 2000)
+      }
+    },
+
+    handlerImg () {
+      window.setTimeout(() => {
+        const imgs = document.getElementsByTagName('img')
+        const lc = window.location
+        const path = lc.protocol + '//' + lc.host + '/Books/' + this.currentBook + '/'
+        for (let i = 0; i < imgs.length; i++) {
+          let img = imgs[i]
+          let src = img.getAttribute('src')
+          src = src.replace(/\.\.\//g, '')
+          img.src = path + src
+          // let src = iframe.src
+          // src = src.replace('https://ajimide.github.io/key-main', 'http://127.0.0.1:' + window.location.port)
+          // iframe.src = src
+        }
+      }, 1000)
+    },
+
     doCopyAction (ele) {
       if (ele && ele.select && document.execCommand) {
         ele.select()
@@ -101,6 +135,7 @@ export default {
         console.error('No copy function in your devices')
       }
     },
+
     copyCode ($e) {
       console.log($e.target)
       let el = $e.target
@@ -111,12 +146,14 @@ export default {
         el = el.parentElement
       }
     },
+
     setWindowHeight () {
       this.height = window.innerHeight
       window.addEventListener('resize', evt => {
         this.height = window.innerHeight
       })
     },
+
     highLightCode () {
       this.$nextTick(() => {
         window.setTimeout(() => {
@@ -126,14 +163,31 @@ export default {
         }, 0)
       })
     },
+
     booksSelectChange ($e) {
       this.currentBook = $e.target.value
       this.getSummary()
     },
+
+    /**
+     * 获取左边目录树结构
+     */
     getSummary () {
       if (this.currentBook) {
         this._handHttp('SUMMARY.md').then(data => {
           this.summary = Marked(data)
+          this.$nextTick(() => {
+            const summaryList = document.getElementsByClassName('summary-list')[0]
+            const aAry = summaryList.getElementsByTagName('a')
+            if (aAry.length > 0) {
+              for (let i = 0; i < aAry.length; i++) {
+                let a = aAry[i]
+                if (a && a.getAttribute('href') && a.innerText) {
+                  a.setAttribute('title', a.innerText)
+                }
+              }
+            }
+          })
         }, err => {
           console.error(err)
         })
@@ -141,29 +195,41 @@ export default {
         console.error('No any book be choosen')
       }
     },
+
     setContentTitle (el) {
       let ary = []
-      while (el && el.classList.contains('summary-list') === false) {
-        if (el.nodeName === 'LI') {
-          const aEle = el.querySelector('a')
-          if (aEle) {
-            ary.push(aEle.innerText + ' / ')
+      let i = 0
+      while (el && el.classList.contains('summary-list') === false && i < 10) {
+        el = el.parentElement
+        let cEl = el.children[0]
+        if (cEl.nodeName === 'A' || cEl.nodeName === 'P') {
+          let cEl = el.children[0]
+          let txt = cEl.innerText
+
+          if (ary.indexOf(txt)) {
+            ary.push(txt)
           }
         }
-        el = el.parentElement
+
+        i++
       }
-      if (ary.length > 0) {
-        let firstOne = ary.shift()
-        firstOne = firstOne.slice(0, firstOne.length - 3)
-        ary = [firstOne].concat(ary)
-        this.contentTitle = ary.reverse()
-      }
+      console.log(ary)
+      this.contentTitle = ary.reverse()
     },
+
+    /**
+     * 左边树目录响应点击，获取内容并展示
+     * @param $e
+     * @returns {boolean}
+     */
     getContent ($e) {
-      console.log($e.target)
+      $e.preventDefault()
+      if ($e.target.nodeName !== 'A') return
+
       if (this.activeSummaryItem) {
         this.activeSummaryItem.classList.remove('active')
       }
+
       $e.target.classList.add('active')
       this.activeSummaryItem = $e.target
 
@@ -173,6 +239,8 @@ export default {
         this._handHttp(href).then(data => {
           this.content = Marked(data)
           this.highLightCode()
+          this.handlerIframe()
+          this.handlerImg()
         }, err => {
           console.error(err)
         })
@@ -180,9 +248,9 @@ export default {
         console.error('Summary href not found')
       }
       this.setContentTitle($e.target)
-      $e.preventDefault()
       return false
     },
+
     dodo ($e) {
       console.log($e)
       // temp2.target.getAttribute('href')
@@ -238,6 +306,18 @@ export default {
         padding: 0 20px;
         top: 70px;
         bottom: 0;
+        ul li, ul li p, ul li a {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        > ul {
+          > li {
+            > p {
+              font-weight: bold;
+            }
+          }
+        }
       }
       form {
         select {
@@ -298,9 +378,13 @@ export default {
         padding: 10px 20px;
         background: $bg-c-white;
         overflow: auto;
+        iframe {
+          width: 100%;
+          height: 250px;
+        }
       }
     }
-    .summary, .summary-list, .main-content {
+    .summary, .summary-list, .main-content, .main-content iframe, .main-content iframe document {
       &::-webkit-scrollbar { // 整个滚动条.
         width: 6px;
         height: 6px;
@@ -318,7 +402,6 @@ export default {
       &::-webkit-scrollbar-thumb:hover {
         background-color: #bbb;
       }
-
       &::-webkit-scrollbar-track { // 滚动条轨道.
       }
       &::-webkit-scrollbar-track-piece { // 滚动条没有滑块的轨道部分.
@@ -328,6 +411,7 @@ export default {
       }
       &::-webkit-resizer { // 某些元素的corner部分的部分样式(例:textarea的可拖动按钮) . &::-webkit-scrollbar-button {
       }
+
     }
   }
 </style>

@@ -45,6 +45,7 @@
           "text": "React",
           "link": "https://reactjs.org"
         }
+
       ]
     },
     {
@@ -79,6 +80,7 @@
           "text": "券妈妈",
           "link": "http://www.quanmama.com/"
         }
+
       ]
     },
     {
@@ -96,34 +98,43 @@
           "text": "DxOMark",
           "link": "https://www.dxomark.com/cn"
         }
+
       ]
     },
     {
       "title": "读书",
       "list": [
         {
-          "text": "知乎",
-          "link": "https://zhihu.com"
+          "type": "list",
+          "list": [
+            {
+              "text": "知乎",
+              "link": "https://zhihu.com"
+            }
+          ]
         },
         {
-          "type": "br"
-        },
-        {
-          "text": "酷安",
-          "link": "https://www.coolapk.com"
-        },
-        {
-          "text": "掘金",
-          "link": "https://juejin.im"
-        },
-        {
-          "text": "掘金酱",
-          "link": "http://e.xitu.io"
-        },
-        {
-          "text": "开源中国",
-          "link": "https://www.oschina.net"
+          "type": "list",
+          "list": [
+            {
+              "text": "酷安",
+              "link": "https://www.coolapk.com"
+            },
+            {
+              "text": "掘金",
+              "link": "https://juejin.im"
+            },
+            {
+              "text": "掘金酱",
+              "link": "http://e.xitu.io"
+            },
+            {
+              "text": "开源中国",
+              "link": "https://www.oschina.net"
+            }
+          ]
         }
+
       ]
     },
     {
@@ -153,6 +164,7 @@
           "text": "AirDroid",
           "link": ""
         }
+
       ]
     },
     {

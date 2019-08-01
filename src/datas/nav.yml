@@ -1,0 +1,106 @@
+# 大小写敏感
+# 使用缩进表示层级关系
+# 使用#号表示注释
+# http://www.ruanyifeng.com/blog/2016/07/yaml.html
+name: 'nav 配置文件'
+desc: 因为不想用数据库故使用了 json 跟 yml
+keys:
+ - nav
+ - json
+ - yml
+keyss: [nav, json, yml]
+obj: {a: aa, b: bb}
+obj2:
+  a: aa
+  b: bb
+list:
+  - {
+    title: Local,
+    list: [
+      { text: Books, link: '#/books' },
+      { text: StyleExp, link: '#/styleExamples/exp' },
+      { text: expAnimate, link: '#/vueExp/exp-animate' },
+    ]
+  }
+  - {
+    title: GitBooks,
+    list: [
+      { text: Tools Books One, link: https://ajimide.gitbooks.io/toolsbooksone/content },
+      { text: Tools Books Two, link: https://ajimide.gitbooks.io/toolsbookstwo/content},
+      { text: My JavaScript, link: https://ajimide.gitbooks.io/myjavascript/content},
+      { text: React Learn, link: https://ajimide.gitbooks.io/reactlearn/content/}
+    ]
+  }
+  - {
+    title: Vue/React,
+    list: [
+      { text: Vue home, link: https://cn.vuejs.org },
+      { text: Vue Cli3, link: https://cli.vuejs.org },
+      { text: Awesome-vue, link: https://github.com/vuejs/awesome-vue },
+      { text: React China, block: true, link: https://react.docschina.org },
+      { text: React, link: https://reactjs.org }
+    ]
+  }
+  - {
+    title: BingGo,
+    list: [
+      { text: Css, link: '#/css' }
+    ]
+  }
+  - {
+    title: Shopping,
+    list: [
+      { text: 网易严选, link: http://you.163.com },
+      { text: 网易考拉, link: https://www.kaola.com },
+      { text: 惠惠助手, link: http://www.huihui.cn },
+      { text: 当当, link: http://www.dangdang.com },
+      { text: 券妈妈, link: http://www.quanmama.com/ }
+    ]
+  }
+  - {
+    title: Design,
+    list: [
+      { text: 'css-tricks', link: https://css-tricks.com },
+      { text: 花瓣, link: https://huaban.com }
+    ]
+  }
+  - {
+    title: 二次元,
+    list: [
+      { text: TapTap, link: https://www.taptap.com },
+      { text: 酷安, link: https://www.coolapk.com },
+      { text: DxOMark, link: https://www.dxomark.com/cn }
+    ]
+  }
+  - {
+    title: 读书,
+    list: [
+      { text: 知乎, link: https://zhihu.com },
+      { text: 酷安, link: https://www.coolapk.com },
+      { text: 掘金, link: https://juejin.im },
+      { text: 掘金酱, link: http://e.xitu.io },
+      { text: 开源中国, link: https://www.oschina.net }
+    ]
+  }
+  - {
+    title: App,
+    list: [
+      { text: Wox, link: https://github.com/Wox-launcher/Wox },
+      { text: TeamViewer, link: https://www.teamviewer.com/cn },
+      { text: 小米快传, link:  },
+      { text: Cortana, link:  },
+      { text: REMOTE, link:  },
+      { text: AirDroid, link:  }
+    ]
+  }
+  - {
+    title: 科技,
+    list: [
+    ]
+  }
+  - {
+    title: GitBooks,
+    list: [
+    ]
+  }
+

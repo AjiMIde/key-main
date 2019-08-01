@@ -1,6 +1,5 @@
-﻿const wallpaper = require('wallpaper')
+const wallpaper = require('wallpaper')
 require('colors')
-
 
 async function change (path) {
   await wallpaper.set(path)

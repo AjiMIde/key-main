@@ -15,11 +15,14 @@
     "element-ui": "^2.4.11",
     "fs-extra": "^7.0.1",
     "highlight.js": "^9.15.6",
+    "lodash": "^4.17.11",
     "marked": "^0.6.0",
     "moment": "^2.23.0",
+    "socket.io": "^2.2.0",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "yaml": "^1.5.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.1.1",
@@ -39,6 +42,7 @@
     "node-notifier": "^5.4.0",
     "node-sass": "^4.10.0",
     "sass-loader": "^7.1.0",
-    "vue-template-compiler": "^2.5.17"
+    "vue-template-compiler": "^2.5.17",
+    "yml-loader": "^2.1.0"
   }
 }

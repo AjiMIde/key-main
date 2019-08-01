@@ -1,0 +1,25 @@
+{
+  "payjson": {
+    "config": {
+      "appId": "wx7fde11a3839cf245",
+      "nonceStr": "__2tm93Eey8lbPiB6_X8meI8rII5SLZi",
+      "signature": "522CCB8496569D8E162AB086310BF4DD",
+      "timestamp": "1560911210175"
+    },
+    "chooseWXPay": {
+      "appId": "wx7fde11a3839cf245",
+      "nonceStr": "4ee30be88d5c4e1e84ad28dc678c872b",
+      "package": "prepay_id=wx191026501172150e35aec1581305547800",
+      "paySign": "tZTgRKLdgMt+0356Eyh0tMXynCQa7wW6/1TchaW+XEU/W86ci/Y7Uvju6eL1G+IgzQP8dGR0rPqVuyzb/6fKg5QAKSKwy14sP1aahMx6VAO50JIIOFgVg4iC5+Eo/df8HhaNoZtwoFZ+OcbSLOANaBOczKXxhvzK+Wig7lQ4nP7Ve1cs3YymazWB9KV5DDXT13GbXpYhXLiCoMIdoG8cflH0X+zEWSEhWrcsHzQHqzrDpvJ6WE1lfzC6SPXRR0PVb/PqEP7HZm9N66SXeoiKSZ0m7CNUTGbSL0OgFCuI5uUESrNj/laPMpPvF0uwGAxgtlAfIp1s0X0qUmnScNLgnw==",
+      "timeStamp": "1560911210",
+      "signType": "RSA"
+    }
+  },
+  "chcd": "WXP",
+  "frontUrl": "https://pay.phone580.com/h5notify/#/h5-notify",
+  "frontData": {
+    "orderNum": "0ae364117da248af9f2f30b26d57089e",
+    "txamt": "000000020000",
+    "transTime": "2019-06-19 10:26:49"
+  }
+}

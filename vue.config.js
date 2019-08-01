@@ -25,6 +25,9 @@ module.exports = {
               }
             }
           ]
+        }, {
+          test: /\.yml$/,
+          loader: 'yml-loader'
         }
       ]
     }

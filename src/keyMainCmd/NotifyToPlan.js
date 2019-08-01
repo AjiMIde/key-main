@@ -1,4 +1,4 @@
-﻿const notifier = require('node-notifier')
+const notifier = require('node-notifier')
 const c = require('child_process')
 require('console-color-mr') // this two plugins for color
 require('colors')
@@ -16,7 +16,7 @@ function getARandomImage () {
 
 function windowsNotify (title, message) {
   const imgPath = getARandomImage()
-  Wallpaper.change(imgPath)
+  // Wallpaper.change(imgPath) 不要改壁纸了
 
   notifier.notify({
     title: title,

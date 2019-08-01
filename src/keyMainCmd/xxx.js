@@ -1,4 +1,4 @@
-﻿async function funB () {
+async function funB () {
   setTimeout(() => {
     console.log('i am funB')
   }, 5000)
