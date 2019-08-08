@@ -4,14 +4,15 @@
       <el-row class="nav-row">
         <el-col :span="6" class="nav-col summary">
           <form action="">
-            <select name="" id="" @change="booksSelectChange($event)">
+            <select name="" id="" @change="booksSelectChange($event)" v-model="currentBook">
               <option v-for="(o, i) in books" :value="o" :key="i">{{o}}</option>
             </select>
           </form>
           <div class="summary-list" v-html="summary" @click="getContent($event)"></div>
         </el-col>
         <el-col :span="18" class="nav-col content">
-          <div class="content-title"><span v-for="(item, index) in contentTitle" :key="index">{{item}} <span v-if="index < contentTitle.length - 1"> / </span> </span></div>
+          <div class="content-title"><span v-for="(item, index) in articleTitle" :key="index">{{item}} <span
+            v-if="index < articleTitle.length - 1"> / </span> </span></div>
           <div class="main-content markdown-body" v-html="content" @dblclick="copyCode($event)"></div>
         </el-col>
       </el-row>
@@ -28,7 +29,7 @@ import 'highlight.js/styles/github.css'
 
 const BOOKS = [
   'Vue2.x',
-  'StylesBooks',
+  'styles-book',
   'mini-program-books',
   'node-js',
   'vue-books'
@@ -41,16 +42,20 @@ export default {
   },
   data () {
     return {
-      height: 0,
-      contentTitle: [],
-      activeSummaryItem: null,
+      height: 0,            // 制作自适应高度
+
       books: BOOKS,
-      currentBook: 'StylesBooks',
+      currentBook: '',
+
+      articleTitle: [],
+      currentArticleEle: null,
+
       summary: '',
       content: ''
     }
   },
   methods: {
+    // 统一发起 app 请求
     _handHttp (url) {
       return new Promise((resolve, reject) => {
         url = `./Books/${this.currentBook}/` + url
@@ -79,6 +84,7 @@ export default {
       })
     },
 
+    // 处理 iframe 地址，由于得到的内容的路径是本地路径，因此开发中，或打包后，都需要处理一些 url成线上地址
     handlerIframe () {
       if (['10.20.11.17', '127.0.0.1', 'localhost'].indexOf(window.location.hostname) >= 0) {
         window.setTimeout(() => {
@@ -93,6 +99,7 @@ export default {
       }
     },
 
+    // 处理图片地址，理由同上
     handlerImg () {
       window.setTimeout(() => {
         const imgs = document.getElementsByTagName('img')
@@ -110,6 +117,18 @@ export default {
       }, 1000)
     },
 
+    // 处理window 的高，使用中间的高自适应
+    setWindowHeight () {
+      this.height = window.innerHeight
+      window.addEventListener('resize', evt => {
+        this.height = window.innerHeight
+      })
+    },
+
+    /**
+     * 复制 element 中的 contentText 内容
+     * @param ele ｛HTMLElement} 要进行复制的 element
+     */
     doCopyAction (ele) {
       if (ele && ele.select && document.execCommand) {
         ele.select()
@@ -136,8 +155,10 @@ export default {
       }
     },
 
+    /**
+     * 复制代码，双击即可复制代码
+     */
     copyCode ($e) {
-      console.log($e.target)
       let el = $e.target
       while (el && el.classList.contains('main-content') === false) {
         if (el.nodeName === 'PRE') {
@@ -147,13 +168,7 @@ export default {
       }
     },
 
-    setWindowHeight () {
-      this.height = window.innerHeight
-      window.addEventListener('resize', evt => {
-        this.height = window.innerHeight
-      })
-    },
-
+    // 代码高亮
     highLightCode () {
       this.$nextTick(() => {
         window.setTimeout(() => {
@@ -164,9 +179,13 @@ export default {
       })
     },
 
+    // html select change 响应
     booksSelectChange ($e) {
       this.currentBook = $e.target.value
       this.getSummary()
+      this.$router.replace({
+        path: '/books/' + this.currentBook
+      })
     },
 
     /**
@@ -179,13 +198,22 @@ export default {
           this.$nextTick(() => {
             const summaryList = document.getElementsByClassName('summary-list')[0]
             const aAry = summaryList.getElementsByTagName('a')
+            let params = this.$route.params
+            let tempArticleName = (params && params.articlename) || ''
             if (aAry.length > 0) {
               for (let i = 0; i < aAry.length; i++) {
                 let a = aAry[i]
                 if (a && a.getAttribute('href') && a.innerText) {
                   a.setAttribute('title', a.innerText)
+                  // 当链接上已经有此文章的 title，则手动点击
+                  if (tempArticleName === a.innerText) {
+                    a.click()
+                  }
                 }
               }
+            }
+            if (tempArticleName === '') {
+              aAry[0].click()
             }
           })
         }, err => {
@@ -196,7 +224,8 @@ export default {
       }
     },
 
-    setContentTitle (el) {
+    // 设置文章标题
+    setArticleTitle (el) {
       let ary = []
       let i = 0
       while (el && el.classList.contains('summary-list') === false && i < 10) {
@@ -214,7 +243,7 @@ export default {
         i++
       }
       console.log(ary)
-      this.contentTitle = ary.reverse()
+      this.articleTitle = ary.reverse()
     },
 
     /**
@@ -226,41 +255,48 @@ export default {
       $e.preventDefault()
       if ($e.target.nodeName !== 'A') return
 
-      if (this.activeSummaryItem) {
-        this.activeSummaryItem.classList.remove('active')
+      if (this.currentArticleEle) {
+        this.currentArticleEle.classList.remove('active')
       }
 
       $e.target.classList.add('active')
-      this.activeSummaryItem = $e.target
+      this.currentArticleEle = $e.target
 
       let href = $e.target.getAttribute('href')
+      let title = $e.target.getAttribute('title')
+      this.$router.replace({
+        path: '/books/' + this.currentBook + '/' + title
+      })
+
       if (href) {
         href.replace(/^\.\//, '')
         this._handHttp(href).then(data => {
           this.content = Marked(data)
-          this.highLightCode()
-          this.handlerIframe()
-          this.handlerImg()
+          this.$nextTick(() => {
+            this.highLightCode()
+            this.handlerIframe()
+            this.handlerImg()
+          })
         }, err => {
           console.error(err)
         })
       } else {
         console.error('Summary href not found')
       }
-      this.setContentTitle($e.target)
-      return false
-    },
-
-    dodo ($e) {
-      console.log($e)
-      // temp2.target.getAttribute('href')
-      $e.preventDefault()
+      this.setArticleTitle($e.target)
       return false
     }
   },
   mounted () {
     window.bk = this
     this.setWindowHeight()
+
+    let params = this.$route.params
+    if (params && params.bookname) {
+      this.currentBook = params.bookname
+    } else {
+      this.currentBook = this.books[0]
+    }
     this.getSummary()
   }
 }
@@ -412,6 +448,13 @@ export default {
       &::-webkit-resizer { // 某些元素的corner部分的部分样式(例:textarea的可拖动按钮) . &::-webkit-scrollbar-button {
       }
 
+    }
+    .main-content {
+      ul {
+        li {
+          line-height: 1.8;
+        }
+      }
     }
   }
 </style>

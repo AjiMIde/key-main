@@ -13,7 +13,7 @@ const routes = [
     component: () => import('../views/home/home.vue')
   },
   {
-    path: '/books',
+    path: '/books/:bookname?/:articlename?',
     component: () => import('../views/books/books.vue')
   },
   {

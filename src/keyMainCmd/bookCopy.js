@@ -1,20 +1,9 @@
 const fse = require('fs-extra')
 
 const books = [
-  // {
-  //   name: 'StylesBooks',
-  //   source: 'H:\\GitHub\\'
-  // },
-  // {
-  //   name: 'mini-program-books',
-  //   source: 'H:\\GitHub\\'
-  // }
-  {
-    name: 'vue-books',
-    source: 'H:\\GitHub\\'
-  }
-  // 'node-js'
-  // 'aa'
+  { name: 'styles-book', source: 'H:\\GitHub\\' },
+  // { name: 'mini-program-books', source: 'H:\\GitHub\\' }
+  { name: 'vue-books', source: 'H:\\GitHub\\' }
 ]
 
 books.forEach(item => {
