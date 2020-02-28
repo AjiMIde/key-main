@@ -5,6 +5,7 @@ import home from './home'
 import styleExamples from './styleExamples'
 import vueExp from './vueExp'
 import exps from './exps'
+import garbage from './garbage'
 
 Vue.use(Router)
 
@@ -67,7 +68,7 @@ const routes = [
     name: 'meetingRoom',
     component: () => import('../views/meeting-room/meeting-room.vue')
   }
-].concat(home).concat(styleExamples).concat(vueExp).concat(exps)
+].concat(home).concat(styleExamples).concat(vueExp).concat(exps).concat(garbage)
 
 export default new Router({
   routes

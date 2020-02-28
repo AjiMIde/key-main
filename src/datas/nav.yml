@@ -23,6 +23,13 @@ list:
     ]
   }
   - {
+    title: STAR,
+    list: [
+      { text: 云盘精灵, link: https://www.yunpanjingling.com/ },
+      { text: otto, link: https://ot0.xyz/ },
+    ]
+  }
+  - {
     title: GitBooks,
     list: [
       { text: Tools Books One, link: https://ajimide.gitbooks.io/toolsbooksone/content },
@@ -61,7 +68,8 @@ list:
     title: Design,
     list: [
       { text: 'css-tricks', link: https://css-tricks.com },
-      { text: 花瓣, link: https://huaban.com }
+      { text: 花瓣, link: https://huaban.com },
+      { text: Uisdc, link: https://www.uisdc.com/}
     ]
   }
   - {
@@ -79,6 +87,7 @@ list:
       { text: 酷安, link: https://www.coolapk.com },
       { text: 掘金, link: https://juejin.im },
       { text: 掘金酱, link: http://e.xitu.io },
+      { text: V2EX, link: https://v2ex.com },
       { text: 开源中国, link: https://www.oschina.net }
     ]
   }

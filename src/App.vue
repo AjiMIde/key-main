@@ -16,6 +16,9 @@
     /*background-blend-mode: color-burn;*/
     /*background-color: #828282 !important;*/
   }
+  html, body {
+    height: 100%;
+  }
 
   #app {
     /*font-family: 'Avenir', Helvetica, Arial, sans-serif;*/
@@ -25,7 +28,7 @@
     color: #2c3e50;
     /*width: 1280px;*/
     /*margin: 0 auto;*/
-    /*height: 100%;*/
+    height: 100%;
   }
 
   #nav {
