@@ -104,7 +104,12 @@ export default {
       window.setTimeout(() => {
         const imgs = document.getElementsByTagName('img')
         const lc = window.location
-        const path = lc.protocol + '//' + lc.host + '/Books/' + this.currentBook + '/'
+        let path = ''
+        if (lc.host.indexOf('ajimide.github.io') > -1) {
+          path = lc.protocol + '//' + lc.host + '/key-main/Books/' + this.currentBook + '/'
+        } else {
+          path = lc.protocol + '//' + lc.host + '/Books/' + this.currentBook + '/'
+        }
         for (let i = 0; i < imgs.length; i++) {
           let img = imgs[i]
           let src = img.getAttribute('src')

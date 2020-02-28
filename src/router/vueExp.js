@@ -4,4 +4,10 @@ export default [{
 }, {
   path: '/vueExp/chat-demo',
   component: () => import('../views/vueExp/chatDemo.vue')
+}, {
+  path: '/vueExp/component-exp/comp-exp',
+  component: () => import('../views/vueExp/component-exp/comp-exp')
+}, {
+  path: '/vueExp/component-exp/comp-provide',
+  component: () => import('../views/vueExp/component-exp/comp-provide')
 }]
