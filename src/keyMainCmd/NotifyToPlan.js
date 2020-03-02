@@ -65,7 +65,7 @@ function start () {
     // 中午14:05, 晚17.45 分打开 tapd 跟 everyDay
     if ((h === 14 && m === 5) || (h === 17 && m === 45)) {
       c.exec('start https://www.tapd.cn/22298271/board/index?board_id=1122298271001000025&board_type=standard&view_type=board')
-      c.exec('start https://www.teambition.com/project/5ac2551cbe97d01847b1834f/tasks/scrum/5ac2551cbe97d01847b18351')
+      c.exec('start https://www.teambition.com/project/5e3a58ee54d05f0021710a39/tasks/scrum/5e3a58eff3b0ba0021db86f5')
       content = 'Day Plan'
       color = 'bgRed'
     }

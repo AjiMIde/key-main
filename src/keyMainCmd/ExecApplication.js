@@ -12,7 +12,8 @@ const apps = [
     txt: 'Teambition',
     path: 'https://www.teambition.com/project/5e3a58ee54d05f0021710a39/tasks/scrum/5e3a58eff3b0ba0021db86f5'
   },
-  { txt: 'TAPD', path: 'https://www.tapd.cn/22298271/board/index?board_id=1122298271001000025' }
+  { txt: 'TAPD', path: 'https://www.tapd.cn/22298271/board/index?board_id=1122298271001000025' },
+  { txt: 'PHONE580', path: 'https://mail.phone580.com/' }
 ]
 
 // 采用 async/await 异步调用

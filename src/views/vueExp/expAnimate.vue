@@ -108,6 +108,7 @@ export default {
       opacity: 1;
       background-color: yellow;
     }
+
     // 开始时添加，一帧后移除
     .fade-enter {
       /*opacity: 0;*/
