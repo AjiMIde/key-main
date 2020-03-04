@@ -11,7 +11,8 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bee-mui": "^0.0.2",
-    "codemirror": "^5.45.0",
+    "code-mirror": "^4.0.1",
+    "codemirror": "^5.52.0",
     "element-ui": "^2.4.11",
     "fs-extra": "^7.0.1",
     "highlight.js": "^9.15.6",

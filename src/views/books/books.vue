@@ -11,9 +11,19 @@
           <div class="summary-list" v-html="summary" @click="getContent($event)"></div>
         </el-col>
         <el-col :span="18" class="nav-col content">
-          <div class="content-title"><span v-for="(item, index) in articleTitle" :key="index">{{item}} <span
-            v-if="index < articleTitle.length - 1"> / </span> </span></div>
-          <div class="main-content markdown-body" v-html="content" @dblclick="copyCode($event)"></div>
+          <div class="content-title">
+            <span v-for="(item, index) in articleTitle" :key="index">{{item}}
+              <span v-if="index < articleTitle.length - 1"> / </span>
+            </span>
+            <button style="float: right" @click="editContent">edit</button>
+          </div>
+
+          <div class="main-content edit-box" v-show="editing">
+            <edit-book ref="editBook"></edit-book>
+            <button @click="saveContent">save</button>
+          </div>
+
+          <div class="main-content markdown-body" v-html="content" @dblclick="copyCode($event)" v-show="!editing"></div>
         </el-col>
       </el-row>
     </div>
@@ -22,6 +32,7 @@
 
 <script>
 import { Row, Col } from 'element-ui'
+import EditBook from './editBook'
 import Marked from 'marked'
 
 import hljs from 'highlight.js'
@@ -34,9 +45,11 @@ const BOOKS = [
   'node-js',
   'vue-books'
 ]
+
 export default {
   name: 'books',
   components: {
+    EditBook,
     'el-row': Row,
     'el-col': Col
   },
@@ -46,12 +59,16 @@ export default {
 
       books: BOOKS,
       currentBook: '',
+      currentHref: '',
 
       articleTitle: [],
       currentArticleEle: null,
 
       summary: '',
-      content: ''
+      rawContent: '',
+      content: '',
+
+      editing: true   // 编辑状态
     }
   },
   methods: {
@@ -251,6 +268,46 @@ export default {
       this.articleTitle = ary.reverse()
     },
 
+    // 保存内容
+    saveContent () {
+      (new Promise((resolve, reject) => {
+        const path = `H:\\GitHub\\key-main\\public\\Books\\` + this.currentBook + '\\' +
+          this.currentHref.replace(/^\.\//, '').replace(/\//, '\\')
+
+        console.log(path)
+        let url = `http://127.0.0.1:7890/article`
+        this.axios.post(url, {
+          path,
+          content: this.rawContent
+        }).then(res => {
+          const { data } = res
+          if (data && data.length > 0) {
+            resolve(data)
+          } else {
+            reject(new Error('Http Success, content is empty'), res)
+          }
+        }).catch((e) => {
+          let text = ''
+          if (e.status === 0) {
+            text = '网络连接已断开...'
+          } else if (e.status === 403) {
+            text = '访问权限受限'
+          } else if (e.status === 404) {
+            text = '访问地址无效...'
+          } else if (e.status === 500) {
+            text = '服务器异常...'
+          } else {
+            text = '请求出现未知异常...'
+          }
+          reject(text, e)
+        })
+      })).then(data => {
+        console.log(data)
+      }, error => {
+        console.log(error)
+      })
+    },
+
     /**
      * 左边树目录响应点击，获取内容并展示
      * @param $e
@@ -276,6 +333,8 @@ export default {
       if (href) {
         href.replace(/^\.\//, '')
         this._handHttp(href).then(data => {
+          this.currentHref = href
+          this.rawContent = data
           this.content = Marked(data)
           this.$nextTick(() => {
             this.highLightCode()
@@ -290,6 +349,20 @@ export default {
       }
       this.setArticleTitle($e.target)
       return false
+    },
+
+    editContent () {
+      if (this.editing) {
+        this.editing = false
+      } else {
+        this.editing = true
+        this.$nextTick(() => {
+          window.setTimeout(() => {
+
+            this.$refs.editBook.setValue(this.rawContent)
+          }, 3000)
+        })
+      }
     }
   },
   mounted () {
@@ -422,6 +495,11 @@ export default {
         iframe {
           width: 100%;
           height: 250px;
+        }
+      }
+      .edit-box {
+        textarea {
+          width: 100%;
         }
       }
     }
