@@ -15,16 +15,14 @@
             <span v-for="(item, index) in articleTitle" :key="index">{{item}}
               <span v-if="index < articleTitle.length - 1"> / </span>
             </span>
-            <button style="float: right" @click="editContent">{{editing ? 'Leave' : 'Edit'}}</button>
-            <button style="float: right" @click="saveContent" v-show="editing">save</button>
+            <div class="edit-btn">
+              <el-btn type="primary" icon="el-icon-edit" size="mini" circle @click="goToEdit"></el-btn>
+            </div>
           </div>
 
           <div class="main-content">
-            <div class="edit-box" :style="{ height: editing ? '100%' : '0px',overflow: 'hidden' }">
-              <edit-book ref="editBook"></edit-book>
-            </div>
             <div class="markdown-body">
-              <div v-html="content" @dblclick="copyCode($event)" v-show="!editing"></div>
+              <div v-html="content" @dblclick="copyCode($event)"></div>
             </div>
           </div>
         </el-col>
@@ -34,13 +32,12 @@
 </template>
 
 <script>
-import { Row, Col } from 'element-ui'
+import { Row, Col, Button } from 'element-ui'
 import Marked from 'marked'
 
 import hljs from 'highlight.js'
 import 'highlight.js/styles/github.css'
 
-import EditBook from './editBook'
 import { HttpApi } from '../../libs/httpR'
 
 const BOOKS = [
@@ -54,9 +51,9 @@ const BOOKS = [
 export default {
   name: 'books',
   components: {
-    EditBook,
     'el-row': Row,
-    'el-col': Col
+    'el-col': Col,
+    'el-btn': Button
   },
   data () {
     return {
@@ -71,10 +68,7 @@ export default {
       currentArticleEle: null,
 
       summary: '',
-      rawContent: '',
-      content: '',
-
-      editing: false   // 编辑状态
+      content: ''
     }
   },
   methods: {
@@ -238,46 +232,6 @@ export default {
       this.articleTitle = ary.reverse()
     },
 
-    // 保存内容
-    saveContent () {
-      (new Promise((resolve, reject) => {
-        const path = `H:\\GitHub\\key-main\\public\\Books\\` + this.currentBook + '\\' +
-          this.currentHref.replace(/^\.\//, '').replace(/\//, '\\')
-
-        console.log(path)
-        let url = `http://127.0.0.1:7890/article`
-        this.axios.post(url, {
-          path,
-          content: this.rawContent
-        }).then(res => {
-          const { data } = res
-          if (data && data.length > 0) {
-            resolve(data)
-          } else {
-            reject(new Error('Http Success, content is empty'), res)
-          }
-        }).catch((e) => {
-          let text = ''
-          if (e.status === 0) {
-            text = '网络连接已断开...'
-          } else if (e.status === 403) {
-            text = '访问权限受限'
-          } else if (e.status === 404) {
-            text = '访问地址无效...'
-          } else if (e.status === 500) {
-            text = '服务器异常...'
-          } else {
-            text = '请求出现未知异常...'
-          }
-          reject(text, e)
-        })
-      })).then(data => {
-        console.log(data)
-      }, error => {
-        console.log(error)
-      })
-    },
-
     /**
      * 左边树目录响应点击，获取内容并展示
      * @param $e
@@ -318,18 +272,8 @@ export default {
       this.setArticleTitle($e.target)
       return false
     },
-
-    editContent () {
-      if (this.editing) {
-        this.editing = false
-      } else {
-        this.editing = true
-        this.$nextTick(() => {
-          window.setTimeout(() => {
-            this.$refs.editBook.setValue(this.rawContent)
-          }, 1000)
-        })
-      }
+    goToEdit () {
+      window.open(`${HttpApi.gitHub}${this.currentBook}/edit/${this.branch}/${this.currentHref}`)
     }
   },
   mounted () {
@@ -443,11 +387,16 @@ export default {
         padding: 0 20px;
         line-height: 40px;
         box-shadow: inset 0px -1px 1px -1px #333;
+        display: flex;
         > span {
           color: $ft-c-grey;
           &:last-child {
             color: $ft-c-black;
           }
+        }
+        .edit-btn {
+          text-align: right;
+          flex: 1;
         }
       }
       .main-content {
