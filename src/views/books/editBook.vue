@@ -47,9 +47,11 @@ export default {
 
 <style lang="scss">
   .edit-book {
+    height: 100%;
     .md-editor {
-      width: 300px;
+      height: 100%;
       .CodeMirror {
+        height: 100%;
         font-family: Microsoft YaHei monospace;
         font-size: 13px;
         line-height: 1.6;

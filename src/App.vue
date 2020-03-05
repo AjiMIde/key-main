@@ -4,12 +4,24 @@
       <!--<router-link to="/">Home</router-link> |-->
       <!--<router-link to="/about">About</router-link>-->
     </div>
+    <bee-loading></bee-loading>
+    <bee-toast></bee-toast>
     <router-view/>
   </div>
 </template>
 
+<script>
+import BeeLoading from 'bee-mui/src/components/dialog/bee-loading'
+import BeeToast from 'bee-mui/src/components/dialog/bee-toast'
+
+export default {
+  components: {
+    BeeLoading, BeeToast
+  }
+}
+</script>
 <style lang="scss">
-  @import "~bee-mui/src/styles/bee.m.reset";
+  @import "~bee-mui/src/styles/bee.reset";
   html {
     /*background-image: url('assets/photo-1489573280374-2e193c63726c.jpg');*/
     /*background-attachment: fixed;*/

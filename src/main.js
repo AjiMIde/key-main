@@ -1,15 +1,22 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router/_router'
+import dialogPlugin from 'bee-mui/src/libs/beePlugin/dialogPlugin'
 
 // import router from './router/_router_odoo'
 import store from './store'
 import axios from 'axios'
+import plugin from './plugin'
+
 import 'element-ui/lib/theme-chalk/index.css'
 
 Vue.config.productionTip = false
 
 Vue.prototype.axios = axios
+
+Vue.use(dialogPlugin)
+
+Vue.use(plugin)
 
 new Vue({
   router,

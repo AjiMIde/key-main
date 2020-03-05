@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "bee-mui": "^0.0.2",
+    "bee-mui": "^0.2.1",
     "code-mirror": "^4.0.1",
     "codemirror": "^5.52.0",
     "element-ui": "^2.4.11",

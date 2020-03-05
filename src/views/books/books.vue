@@ -15,15 +15,18 @@
             <span v-for="(item, index) in articleTitle" :key="index">{{item}}
               <span v-if="index < articleTitle.length - 1"> / </span>
             </span>
-            <button style="float: right" @click="editContent">edit</button>
+            <button style="float: right" @click="editContent">{{editing ? 'Leave' : 'Edit'}}</button>
+            <button style="float: right" @click="saveContent" v-show="editing">save</button>
           </div>
 
-          <div class="main-content edit-box" v-show="editing">
-            <edit-book ref="editBook"></edit-book>
-            <button @click="saveContent">save</button>
+          <div class="main-content">
+            <div class="edit-box" :style="{ height: editing ? '100%' : '0px',overflow: 'hidden' }">
+              <edit-book ref="editBook"></edit-book>
+            </div>
+            <div class="markdown-body">
+              <div v-html="content" @dblclick="copyCode($event)" v-show="!editing"></div>
+            </div>
           </div>
-
-          <div class="main-content markdown-body" v-html="content" @dblclick="copyCode($event)" v-show="!editing"></div>
         </el-col>
       </el-row>
     </div>
@@ -32,15 +35,17 @@
 
 <script>
 import { Row, Col } from 'element-ui'
-import EditBook from './editBook'
 import Marked from 'marked'
 
 import hljs from 'highlight.js'
 import 'highlight.js/styles/github.css'
 
+import EditBook from './editBook'
+import { HttpApi } from '../../libs/httpR'
+
 const BOOKS = [
-  'Vue2.x',
   'styles-book',
+  'Vue2.x',
   'mini-program-books',
   'node-js',
   'vue-books'
@@ -58,6 +63,7 @@ export default {
       height: 0,            // 制作自适应高度
 
       books: BOOKS,
+      branch: 'master',
       currentBook: '',
       currentHref: '',
 
@@ -68,41 +74,13 @@ export default {
       rawContent: '',
       content: '',
 
-      editing: true   // 编辑状态
+      editing: false   // 编辑状态
     }
   },
   methods: {
-    // 统一发起 app 请求
-    _handHttp (url) {
-      return new Promise((resolve, reject) => {
-        url = `./Books/${this.currentBook}/` + url
-        this.axios.get(url).then(res => {
-          const { data } = res
-          if (data && data.length > 0) {
-            resolve(data)
-          } else {
-            reject(new Error('Http Success, content is empty'), res)
-          }
-        }).catch((e) => {
-          let text = ''
-          if (e.status === 0) {
-            text = '网络连接已断开...'
-          } else if (e.status === 403) {
-            text = '访问权限受限'
-          } else if (e.status === 404) {
-            text = '访问地址无效...'
-          } else if (e.status === 500) {
-            text = '服务器异常...'
-          } else {
-            text = '请求出现未知异常...'
-          }
-          reject(text, e)
-        })
-      })
-    },
-
+    // 暂时弃用
     // 处理 iframe 地址，由于得到的内容的路径是本地路径，因此开发中，或打包后，都需要处理一些 url成线上地址
-    handlerIframe () {
+    ___handlerIframe () {
       if (['10.20.11.17', '127.0.0.1', 'localhost'].indexOf(window.location.hostname) >= 0) {
         window.setTimeout(() => {
           const iframes = document.getElementsByTagName('iframe')
@@ -120,23 +98,15 @@ export default {
     handlerImg () {
       window.setTimeout(() => {
         const imgs = document.getElementsByTagName('img')
-        const lc = window.location
-        let path = ''
-        if (lc.host.indexOf('ajimide.github.io') > -1) {
-          path = lc.protocol + '//' + lc.host + '/key-main/Books/' + this.currentBook + '/'
-        } else {
-          path = lc.protocol + '//' + lc.host + '/Books/' + this.currentBook + '/'
-        }
+        const path = HttpApi.rawGitHub + this.currentBook + '/' + this.branch + '/'
+
         for (let i = 0; i < imgs.length; i++) {
           let img = imgs[i]
           let src = img.getAttribute('src')
           src = src.replace(/\.\.\//g, '')
           img.src = path + src
-          // let src = iframe.src
-          // src = src.replace('https://ajimide.github.io/key-main', 'http://127.0.0.1:' + window.location.port)
-          // iframe.src = src
         }
-      }, 1000)
+      }, 0)
     },
 
     // 处理window 的高，使用中间的高自适应
@@ -215,14 +185,16 @@ export default {
      */
     getSummary () {
       if (this.currentBook) {
-        this._handHttp('SUMMARY.md').then(data => {
+        this.httpR.getBookSummary(`${this.currentBook}/${this.branch}/SUMMARY.md`).then(data => {
           this.summary = Marked(data)
+
           this.$nextTick(() => {
+            // 处理summary，使其可被点击，并初使化一个点击
             const summaryList = document.getElementsByClassName('summary-list')[0]
             const aAry = summaryList.getElementsByTagName('a')
             let params = this.$route.params
             let tempArticleName = (params && params.articlename) || ''
-            if (aAry.length > 0) {
+            if (aAry.length > 0) { // element 只能用 for
               for (let i = 0; i < aAry.length; i++) {
                 let a = aAry[i]
                 if (a && a.getAttribute('href') && a.innerText) {
@@ -238,8 +210,6 @@ export default {
               aAry[0].click()
             }
           })
-        }, err => {
-          console.error(err)
         })
       } else {
         console.error('No any book be choosen')
@@ -327,22 +297,20 @@ export default {
       let href = $e.target.getAttribute('href')
       let title = $e.target.getAttribute('title')
       this.$router.replace({
-        path: '/books/' + this.currentBook + '/' + title
+        path: '/books/' + this.currentBook + '/' + encodeURIComponent(title)
       })
 
       if (href) {
-        href.replace(/^\.\//, '')
-        this._handHttp(href).then(data => {
+        href = href.replace(/^\.\//, '')
+        this.httpR.getBookContent(`${this.currentBook}/${this.branch}/${href}`).then(data => {
           this.currentHref = href
           this.rawContent = data
           this.content = Marked(data)
+
           this.$nextTick(() => {
             this.highLightCode()
-            this.handlerIframe()
             this.handlerImg()
           })
-        }, err => {
-          console.error(err)
         })
       } else {
         console.error('Summary href not found')
@@ -358,9 +326,8 @@ export default {
         this.editing = true
         this.$nextTick(() => {
           window.setTimeout(() => {
-
             this.$refs.editBook.setValue(this.rawContent)
-          }, 3000)
+          }, 1000)
         })
       }
     }
@@ -381,7 +348,7 @@ export default {
 </script>
 
 <style lang="scss">
-  @import "~bee-mui/src/styles/bee.m.markdown";
+  @import "~bee-mui/src/styles/bee.markdown";
 
   .books {
     $bg-c-1: whitesmoke;
