@@ -3,11 +3,9 @@
     <div class="container">
       <el-row class="nav-row">
         <el-col :span="6" class="nav-col summary">
-          <form action="">
-            <select name="" id="" @change="booksSelectChange($event)" v-model="currentBook">
-              <option v-for="(o, i) in books" :value="o" :key="i">{{o}}</option>
-            </select>
-          </form>
+          <el-select v-model="currentBook" @change="booksSelectChange" placeholder="请选择">
+            <el-option v-for="book in books" :key="book.value" :label="book.label" :value="book.value"></el-option>
+          </el-select>
           <div class="summary-list" v-html="summary" @click="getContent($event)"></div>
         </el-col>
         <el-col :span="18" class="nav-col content">
@@ -32,7 +30,7 @@
 </template>
 
 <script>
-import { Row, Col, Button } from 'element-ui'
+import { Row, Col, Button, Select, Option } from 'element-ui'
 import Marked from 'marked'
 
 import hljs from 'highlight.js'
@@ -41,11 +39,10 @@ import 'highlight.js/styles/github.css'
 import { HttpApi } from '../../libs/httpR'
 
 const BOOKS = [
-  'styles-book',
-  'Vue2.x',
-  'mini-program-books',
-  'node-js',
-  'vue-books'
+  { value: 'styles-book', label: 'styles-book' },
+  { value: 'mini-program-books', label: 'mini-program-books' },
+  { value: 'node-js', label: 'node-js' },
+  { value: 'vue-books', label: 'vue-books' }
 ]
 
 export default {
@@ -53,7 +50,9 @@ export default {
   components: {
     'el-row': Row,
     'el-col': Col,
-    'el-btn': Button
+    'el-btn': Button,
+    'el-select': Select,
+    'el-option': Option
   },
   data () {
     return {
@@ -166,8 +165,7 @@ export default {
     },
 
     // html select change 响应
-    booksSelectChange ($e) {
-      this.currentBook = $e.target.value
+    booksSelectChange () {
       this.getSummary()
       this.$router.replace({
         path: '/books/' + this.currentBook
