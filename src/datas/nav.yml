@@ -39,6 +39,13 @@ list:
     ]
   }
   - {
+    title: Tools,
+    list: [
+      { text: CanIUse, link: https://caniuse.com/ },
+      { text: , link:  },
+    ]
+  }
+  - {
     title: Vue/React,
     list: [
       { text: Vue home, link: https://cn.vuejs.org },
@@ -69,7 +76,9 @@ list:
     list: [
       { text: 'css-tricks', link: https://css-tricks.com },
       { text: 花瓣, link: https://huaban.com },
-      { text: Uisdc, link: https://www.uisdc.com/}
+      { text: Uisdc, link: https://www.uisdc.com/},
+      { text: iconfont, link: http://www.iconfont.cn },
+      { text: dribbble, link: https://dribbble.com/ },
     ]
   }
   - {
@@ -88,7 +97,9 @@ list:
       { text: 掘金, link: https://juejin.im },
       { text: 掘金酱, link: http://e.xitu.io },
       { text: V2EX, link: https://v2ex.com },
-      { text: 开源中国, link: https://www.oschina.net }
+      { text: 开源中国, link: https://www.oschina.net },
+      { text: segmentfault, link: https://segmentfault.com },
+      { text: Alloyteam, link: http://alloyteam.github.io },
     ]
   }
   - {
@@ -110,6 +121,12 @@ list:
   - {
     title: GitBooks,
     list: [
+    ]
+  }
+  - {
+    title: APP 设计,
+    list: [
+      { text: 24学堂, link: https://www.25xt.com }
     ]
   }
 

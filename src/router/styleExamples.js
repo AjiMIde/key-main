@@ -22,4 +22,7 @@ export default [
   }, {
     path: p + '2020-02-25-Neumorphism-Ui-Design',
     component: () => import('../views/styleExamples/2020-02-25-Neumorphism-Ui-Design.vue')
+  }, {
+    path: p + '20200402-BounceJs',
+    component: () => import('../views/styleExamples/20200402-BounceJs.vue')
   }]

@@ -10,4 +10,7 @@ export default [{
 }, {
   path: '/garbage/g4',
   component: () => import('../views/garbage/g4.vue')
+}, {
+  path: '/garbage/g5',
+  component: () => import('../views/garbage/g5.vue')
 }]

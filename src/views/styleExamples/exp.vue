@@ -1,21 +1,15 @@
 <template>
   <div class="style-exp1">
-    <div class="style-item">
-      <div class="list list-1">
-        <div class="list-item" :class="{'list-item-checked': o.checked}"
-             v-for="(o, i) in list" @click="listClick(o, i)" :key="i">
-        </div>
+    <div class="div1">
+      <div class="div1-1">
+        abcbefg,
+        abcbefg,
+        abcbefg,
+        abcbefg,
+        abcbefg,
       </div>
+      <div class="div1-2">按钮按钮</div>
     </div>
-
-    <div class="style-item">
-      <div class="list list-2">
-        <div class="list-item" :class="{'list-item-checked': o.checked}"
-             v-for="(o, i) in list" @click="listClick(o, i)" :key="i">
-        </div>
-      </div>
-    </div>
-
   </div>
 </template>
 <script>
@@ -53,6 +47,22 @@ export default {
 
 <style lang="scss">
   .style-exp1 {
+    .div1 {
+      width: 300px;
+      display: flex;
+      border: 1px solid ;
+      //overflow: hidden;
+      .div1-1 {
+        flex: 1;
+        white-space: nowrap;
+        //width: 0;
+      }
+      .div1-2 {
+        //width: auto;
+        background-color: red;
+        //flex: 0 0 auto;
+      }
+    }
     padding: 100px;
     $c-bg: #f4726d;
     $c-w: #fff;

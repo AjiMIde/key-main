@@ -9,16 +9,16 @@
 
     <el-row class="nav-row">
       <!--<el-col :span="12" class="nav-col">-->
-        <!--<TimeToRest></TimeToRest>-->
+      <!--<TimeToRest></TimeToRest>-->
       <!--</el-col>-->
       <!--<el-col :span="12" class="nav-col">-->
-        <!--<LaunchExe></LaunchExe>-->
+      <!--<LaunchExe></LaunchExe>-->
       <!--</el-col>-->
     </el-row>
 
     <el-row class="nav-row">
       <el-col :span="24" class="nav-col">
-        <dashboard-google></dashboard-google>
+        <weather></weather>
       </el-col>
     </el-row>
 
@@ -49,6 +49,8 @@
 // @ is an alias to /src
 import { Row, Col } from 'element-ui'
 import HelloWorld from '@/components/HelloWorld.vue'
+import weather from '@/views/experiment/weather/weather.vue'
+
 // import TimeToRest from '@/components/TimeToRest.vue'
 // import LaunchExe from '@/components/LaunchExe.vue'
 
@@ -74,6 +76,7 @@ export default {
     HelloWorld,
     // TimeToRest,
     // LaunchExe,
+    weather,
     DashboardGoogle
   },
   data () {

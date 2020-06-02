@@ -2,18 +2,54 @@ import Vue from 'vue'
 import qs from 'qs'
 import axios from 'axios'
 
+import NProgress from 'nprogress/nprogress'
+import 'nprogress/nprogress.css'
+
 const api = {
   url: 'http://127.0.0.1:7890',
   gitHub: 'https://github.com/AjiMIde/',
   rawGitHub: 'https://raw.githubusercontent.com/AjiMIde/'
 }
+
+class Loading {
+  constructor (style, compVue) {
+    this.normal = 'normal'
+    this.np = 'np'
+    this.none = false
+
+    this.compVue = compVue
+
+    this.style = style || this.normal
+  }
+  setStyle (style) {
+    this.style = style || this.normal
+  }
+  show () {
+    this.action(true)
+  }
+  hide () {
+    this.action(false)
+  }
+  action (bool) {
+    if (this.style === this.normal) {
+      bool ? this.compVue.bee.showLoading() : this.compVue.bee.hideLoading()
+    } else if (this.style === this.np) {
+      bool ? NProgress.start() : NProgress.done()
+    }
+  }
+}
+let loading = null
+let compVue = null
+
 export default {
-  _http (urlMethod = '', data = {}, method = 'post', needLoading = true, needToastError = true, needShowNetworkError = true) {
-    // 实例化一个Vue对象
-    const compVue = new Vue()
+  _http (urlMethod = '', data = {}, method = 'post', loadingStyle = 'np', needToastError = true, needShowNetworkError = true) {
+    // 实例化
+    compVue = compVue || new Vue()
+    loading = loading || new Loading(loadingStyle, compVue)
 
     // 显示 loading
-    needLoading && compVue.bee.showLoading()
+    loading.setStyle(loadingStyle)
+    loading.show()
 
     // 创建请求 url 及参数
     let url = ''
@@ -36,8 +72,7 @@ export default {
     // 返回promise
     return new Promise(function (resolve, reject) {
       axios(param).then(response => {
-        // 隐藏 loading
-        needLoading && compVue.bee.hideLoading()
+        loading.hide() // 隐藏 loading
 
         // 当返回状态为 200 时
         if (response.status === 200) {
@@ -76,8 +111,7 @@ export default {
           reject(new Error(msg))
         }
       }).catch(error => {
-        // 显示 loading
-        needLoading && compVue.bee.hideLoading()
+        loading.hide() // 隐藏 loading
 
         let msg = '请求错误'
         msg = error.response.status > 399 ? '未找到请求方法或链接' : msg

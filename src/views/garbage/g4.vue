@@ -1,18 +1,30 @@
 <template>
   <div class="g4">
+    ??
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: '',
   components: {},
   data () {
     return {}
   },
-  methods: {},
+  methods: {
+    getUserA () {
+      return axios({
+        method: 'get',
+        url: '/api'
+      }).then(res => console.log(res))
+    }
+  },
+  created () {
+  },
   mounted () {
-    this.httpR.test2()
+    this.getUserA()
   }
 }
 </script>

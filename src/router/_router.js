@@ -6,6 +6,7 @@ import styleExamples from './styleExamples'
 import vueExp from './vueExp'
 import exps from './exps'
 import garbage from './garbage'
+import experiment from './experiment'
 
 Vue.use(Router)
 
@@ -67,8 +68,12 @@ const routes = [
     path: '/meeting-room',
     name: 'meetingRoom',
     component: () => import('../views/meeting-room/meeting-room.vue')
+  }, {
+    path: '/dinner',
+    name: 'dinner',
+    component: () => import('../views/dinner/dinner.vue')
   }
-].concat(home).concat(styleExamples).concat(vueExp).concat(exps).concat(garbage)
+].concat(home).concat(styleExamples).concat(vueExp).concat(exps).concat(garbage).concat(experiment)
 
 export default new Router({
   routes

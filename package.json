@@ -11,17 +11,19 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bee-mui": "^0.2.1",
+    "bounce.js": "^0.8.2",
     "code-mirror": "^4.0.1",
     "codemirror": "^5.52.0",
     "element-ui": "^2.4.11",
     "fs-extra": "^7.0.1",
     "highlight.js": "^9.15.6",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "marked": "^0.6.0",
     "moment": "^2.23.0",
+    "nprogress": "^0.2.0",
     "socket.io": "^2.2.0",
     "velocity-animate": "^2.0.5",
-    "vue": "^2.5.17",
+    "vue": "^2.6.11",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
     "yaml": "^1.5.0"
@@ -44,7 +46,7 @@
     "node-notifier": "^5.4.0",
     "node-sass": "^4.10.0",
     "sass-loader": "^7.1.0",
-    "vue-template-compiler": "^2.5.17",
+    "vue-template-compiler": "^2.6.11",
     "yml-loader": "^2.1.0"
   }
 }
