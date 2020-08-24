@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router/_router'
 import dialogPlugin from 'bee-mui/src/libs/beePlugin/dialogPlugin'
+import setHeaderScriptStylePlugin from './libs/pluginSetHeaderScriptAndStyle'
 
 // import router from './router/_router_odoo'
 import store from './store'
@@ -15,6 +16,7 @@ Vue.config.productionTip = false
 Vue.prototype.axios = axios
 
 Vue.use(dialogPlugin)
+Vue.use(setHeaderScriptStylePlugin)
 
 Vue.use(plugin)
 

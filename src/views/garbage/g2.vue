@@ -3,31 +3,26 @@
 </template>
 
 <script>
+import wechat from './wechat'
+
 export default {
   name: 'g2',
   data () {
-    this.url = 'http://127.0.0.1:7890'
     return {}
   },
   methods: {
-    send (content = 'working') {
-      this.axios.post(this.url, content).then(function (response) {
-        console.log(response)
-      }).catch(function (error) {
-        // handle error
-        console.log(error)
-      }).then(function () {
-        // always executed
-      })
-    },
-    get (param = '') {
-      this.axios.get(this.url + param).then(res => {
-        console.log(res)
-      })
-    }
   },
   mounted () {
-    window.t = this
+    wechat.listen('info', (person, msg, time) => {
+      console.log(person, msg, time)
+    })
+
+    wechat.one('info', (person, msg, time) => {
+      console.log(msg, time)
+    })
+
+    wechat.trigger('info', 'curry', 'hello', '2011-11-11 11:11:11')
+    window.wt = wechat
   }
 }
 </script>

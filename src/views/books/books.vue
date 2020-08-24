@@ -3,12 +3,15 @@
     <div class="container">
       <el-row class="nav-row">
         <el-col :span="6" class="nav-col summary">
+
           <el-select v-model="currentBook" @change="booksSelectChange" placeholder="请选择">
             <el-option v-for="book in books" :key="book.value" :label="book.label" :value="book.value"></el-option>
           </el-select>
           <div class="summary-list" v-html="summary" @click="getContent($event)"></div>
+
         </el-col>
         <el-col :span="18" class="nav-col content">
+
           <div class="content-title">
             <span v-for="(item, index) in articleTitle" :key="index">{{item}}
               <span v-if="index < articleTitle.length - 1"> / </span>
@@ -23,6 +26,7 @@
               <div v-html="content" @dblclick="copyCode($event)"></div>
             </div>
           </div>
+
         </el-col>
       </el-row>
     </div>
@@ -42,7 +46,8 @@ const BOOKS = [
   { value: 'styles-book', label: 'styles-book' },
   { value: 'mini-program-books', label: 'mini-program-books' },
   { value: 'node-js', label: 'node-js' },
-  { value: 'vue-books', label: 'vue-books' }
+  { value: 'vue-books', label: 'vue-books' },
+  { value: 'Keys', label: 'Keys博客' }
 ]
 
 export default {
