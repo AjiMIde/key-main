@@ -43,10 +43,11 @@ import 'highlight.js/styles/github.css'
 import { HttpApi } from '../../libs/httpR'
 
 const BOOKS = [
-  { value: 'styles-book', label: 'styles-book' },
+  { value: 'react-books', label: 'React-books' },
+  { value: 'vue-books', label: 'Vue-books' },
+  { value: 'styles-book', label: 'Styles-book' },
   { value: 'mini-program-books', label: 'mini-program-books' },
-  { value: 'node-js', label: 'node-js' },
-  { value: 'vue-books', label: 'vue-books' },
+  { value: 'node-js', label: 'Node-js' },
   { value: 'Keys', label: 'Keys博客' }
 ]
 
