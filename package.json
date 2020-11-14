@@ -14,6 +14,7 @@
     "bounce.js": "^0.8.2",
     "code-mirror": "^4.0.1",
     "codemirror": "^5.52.0",
+    "dragula": "^3.7.3",
     "element-ui": "^2.4.11",
     "fs-extra": "^7.0.1",
     "highlight.js": "^9.15.6",

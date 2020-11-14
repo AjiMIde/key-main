@@ -48,7 +48,8 @@ const BOOKS = [
   { value: 'styles-book', label: 'Styles-book' },
   { value: 'mini-program-books', label: 'mini-program-books' },
   { value: 'node-js', label: 'Node-js' },
-  { value: 'Keys', label: 'Keys博客' }
+  { value: 'Keys', label: 'Keys博客' },
+  { value: 'javascript-book', label: 'JavaScript-Book'},
 ]
 
 export default {
@@ -207,10 +208,45 @@ export default {
             if (tempArticleName === '') {
               aAry[0].click()
             }
+
+            // 处理父标题
+            const pAry = summaryList.getElementsByTagName('p')
+            for (let i = 0; i < pAry.length; i++) {
+              let p = pAry[i]
+              let pContent = p.innerHTML
+              let span1 = document.createElement('span')
+              span1.innerHTML = pContent
+              span1.style.flex = '1'
+              let span2 = document.createElement('span')
+              span2.innerHTML = '[-]'
+              span2.onclick = evt => {
+                this.expandSummary(evt)
+              }
+              p.innerHTML = ''
+              p.appendChild(span1)
+              p.appendChild(span2)
+            }
           })
         })
       } else {
         console.error('No any book be choosen')
+      }
+    },
+
+    // 设置一些导航 收起或展开
+    expandSummary (evt) {
+      let t = evt.target
+      let p = t.parentNode
+      let ul = p.nextElementSibling
+      let css = 'summary-collapse'
+      if (ul) {
+        if (ul.classList.contains(css)) {
+          t.innerHTML = '[-]'
+          ul.classList.remove(css)
+        } else {
+          t.innerHTML = '[+]'
+          ul.classList.add(css)
+        }
       }
     },
 
@@ -232,7 +268,6 @@ export default {
 
         i++
       }
-      console.log(ary)
       this.articleTitle = ary.reverse()
     },
 
@@ -381,6 +416,28 @@ export default {
       ul {
         li {
 
+        }
+      }
+      p {
+        display: flex;
+        span { }
+      }
+      ul.summary-collapse {
+        overflow: hidden;
+        height: 16px;
+        //background: linear-gradient(to bottom, #ffffff 0%,#d0d0d0 100%);
+        position: relative;
+        color: transparent;
+        a {
+          color: transparent;
+        }
+        &:after {
+          display: block;
+          position: absolute;
+          color: #000;
+          top: 0;
+          left: 30px;
+          content: '......'
         }
       }
     }

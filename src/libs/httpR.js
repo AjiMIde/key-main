@@ -41,7 +41,7 @@ class Loading {
 let loading = null
 let compVue = null
 
-export default {
+const h = {
   _http (urlMethod = '', data = {}, method = 'post', loadingStyle = 'np', needToastError = true, needShowNetworkError = true) {
     // 实例化
     compVue = compVue || new Vue()
@@ -54,7 +54,7 @@ export default {
     // 创建请求 url 及参数
     let url = ''
     if (typeof urlMethod === 'string') {
-      url = api.url + urlMethod
+      url = api.url + '/' + urlMethod
     } else {
       url = urlMethod[0] + urlMethod[1]
     }
@@ -79,7 +79,11 @@ export default {
           let respData = response.data
 
           if (respData) {
-            resolve(respData)
+            if (respData.code === 0 && respData.success) {
+              resolve(respData.data)
+            } else {
+              resolve(respData)
+            }
           } else {
             let msg = respData.message || '请求错误'
             needToastError && compVue.bee.showToast(msg, 'fail')
@@ -111,9 +115,11 @@ export default {
           reject(new Error(msg))
         }
       }).catch(error => {
+        console.error(error)
         loading.hide() // 隐藏 loading
 
         let msg = '请求错误'
+        !error.response ? error.response = {} : false
         msg = error.response.status > 399 ? '未找到请求方法或链接' : msg
         msg = error.response.status > 499 ? '服务器内部错误' : msg
 
@@ -143,7 +149,24 @@ export default {
    */
   getBookContent (link) {
     return this._http([api.rawGitHub, link], {}, 'get')
+  },
+
+  test2 () {
+    return this._http('article', {
+      aji: 'xxx'
+    }, 'post')
+  },
+
+  homeNavList: {
+    get (path = `H:\\GitHub\\key-main\\src\\datas\\nav.json`) {
+      return h._http(`key-main-home-nav/${encodeURIComponent(path)}`, {}, 'get')
+    },
+    update (content, path = `H:\\GitHub\\key-main\\src\\datas\\nav.json`) {
+      return h._http(`key-main-home-nav/${encodeURIComponent(path)}`, {content}, 'post')
+    }
   }
+
 }
 
+export default h
 export { api as HttpApi }

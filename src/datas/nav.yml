@@ -25,6 +25,8 @@ list:
   - {
     title: STAR,
     list: [
+      { text: mozilla.org, link: https://developer.mozilla.org/zh-CN/, desc: 有事没事 mozilla.org },
+      { text: 前端圈, link: https://fequan.com/, desc: 就快要挂了的一网站，不过有很多好东西 },
       { text: 云盘精灵, link: https://www.yunpanjingling.com/ },
       { text: otto, link: https://ot0.xyz/ },
     ]
@@ -78,7 +80,9 @@ list:
       { text: 花瓣, link: https://huaban.com },
       { text: Uisdc, link: https://www.uisdc.com/},
       { text: iconfont, link: http://www.iconfont.cn },
-      { text: dribbble, link: https://dribbble.com/ },
+      { text: dribbble, link: https://dribbble.com/, desc: '一个设计师设计各种App页面的页面，以及一些网页模板等；' },
+      { text: tympanus-codrops, link: https://tympanus.net/codrops/, desc: '一个收集了大量的网页模板、特效、App设计等资源的网站，类似于 Dribbble；' },
+      { text: UI中国, link: https://www.ui.cn/, desc: ... },
     ]
   }
   - {

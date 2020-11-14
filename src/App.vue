@@ -17,6 +17,9 @@ import BeeToast from 'bee-mui/src/components/dialog/bee-toast'
 export default {
   components: {
     BeeLoading, BeeToast
+  },
+  mounted () {
+    window.app = this
   }
 }
 </script>
