@@ -9,7 +9,7 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "bee-mui": "^0.2.1",
     "bounce.js": "^0.8.2",
     "code-mirror": "^4.0.1",
